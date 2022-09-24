@@ -1,8 +1,16 @@
-<mat-form-field appearance="fill">
-  <mat-label>Username</mat-label>
-  <input matInput />
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Password</mat-label>
-  <input matInput />
-</mat-form-field>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="25">
+    <!-- 25 % din screen witdh -->
+    <mat-toolbar color="primary">Login Page</mat-toolbar>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form">
+      <mat-form-field>
+        <input matInput placeholder="Username" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" />
+      </mat-form-field>
+      <button mat-raised-button type="submit">Login</button>
+    </form>
+  </mat-card>
+</div>

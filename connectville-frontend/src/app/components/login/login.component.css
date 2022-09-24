@@ -1,5 +1,7 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.main-div mat-card {
+  padding: 0px;
+}
+
+.login-form {
+  padding: 20px;
 }
