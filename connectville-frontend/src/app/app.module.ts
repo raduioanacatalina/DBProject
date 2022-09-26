@@ -17,8 +17,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -30,7 +32,6 @@ import { FakeBackendProvider } from './fake_backend.interceptor';
     AppComponent,
     LoginComponent,
     HomepageComponent,
-    ReactiveFormsModule,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +51,8 @@ import { FakeBackendProvider } from './fake_backend.interceptor';
     MatToolbarModule,
     FlexLayoutModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   providers: [
