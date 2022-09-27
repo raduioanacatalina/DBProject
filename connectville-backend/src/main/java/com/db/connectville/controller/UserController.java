@@ -35,6 +35,8 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
         String token = jwtUtils.generateJWT(loginUser);
+        loginUser.setJwt(token);
+        userService.updateUser(loginUser);
         return new LoginResponse(token);
 
     }

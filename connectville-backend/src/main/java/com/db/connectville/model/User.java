@@ -26,7 +26,8 @@ public class User {
     private String password;
     @Column(nullable = false)
     private String email;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name =  "role_id", referencedColumnName = "id")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
+    private String jwt;
 }
