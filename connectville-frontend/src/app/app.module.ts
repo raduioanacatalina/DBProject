@@ -23,9 +23,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { FakeBackendProvider } from './fake_backend.interceptor';
+import { LoginComponent } from './auth/pages/login/login.component';
+import { HomepageComponent } from './news/pages/homepage/homepage.component';
+import { FakeBackendProvider } from './auth/helpers/fake_backend.interceptor';
 
 @NgModule({
   declarations: [
