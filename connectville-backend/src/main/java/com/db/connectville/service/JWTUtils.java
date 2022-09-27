@@ -16,7 +16,6 @@ public class JWTUtils {
     private final Algorithm algorithm = Algorithm.HMAC256("encryptionSecret");
 
     public String generateJWT(User user) {
-        //TO DO: populate map with user info
         Map<String, String> payloadClaims = new HashMap<>();
         payloadClaims.put("Firstname", user.getFirstName());
         payloadClaims.put("Lastname", user.getLastName());

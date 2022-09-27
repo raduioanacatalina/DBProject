@@ -6,6 +6,7 @@ import com.db.connectville.exception.UserNotFoundException;
 import com.db.connectville.model.User;
 import com.db.connectville.repository.UserRepository;
 import com.db.connectville.service.JWTUtils;
+import com.db.connectville.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
+    private final UserService userService;
     private final UserRepository userRepository;
     private final JWTUtils jwtUtils;
 
@@ -28,8 +30,7 @@ public class UserController {
     public LoginResponse login(@ApiParam(value = "username", required = true, defaultValue = "Joe") @RequestBody LoginRequest loginRequest) {
         User loginUser;
         try {
-
-            loginUser = userRepository.findByUsername(loginRequest.getUsername());
+            loginUser = userService.getByUsername(loginRequest.getUsername());
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
