@@ -2,6 +2,7 @@ package com.db.connectville.controller;
 
 import com.db.connectville.dtos.LoginRequest;
 import com.db.connectville.dtos.LoginResponse;
+import com.db.connectville.model.User;
 import com.db.connectville.repository.UserRepository;
 import com.db.connectville.service.JWTUtils;
 import io.swagger.annotations.ApiOperation;
@@ -27,12 +28,13 @@ public class UserController {
                     response = LoginResponse.class, responseContainer = "List")})
     @PostMapping("/login")
     public LoginResponse login(@ApiParam(value = "username", required = true, defaultValue = "Joe")
-                                   @RequestBody LoginRequest loginRequest) {
-        if (!userRepository.findByUsername(loginRequest.getUsername()).getUsername().equals("")) {
-            String token = jwtUtils.generateJWT(loginRequest);
-            return new LoginResponse(token);
-        }
-        return new LoginResponse("");
+                               @RequestBody LoginRequest loginRequest) {
+        User loginUser = userRepository.findByUsername(loginRequest.getUsername());
+        String token = jwtUtils.generateJWT(loginUser);
+        return new LoginResponse(token);
+//        }
+        //To do: bad request pt date invalide
+//        return new LoginResponse("");
     }
 
     @PostMapping("/verify")
