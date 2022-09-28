@@ -17,15 +17,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/pages/login/login.component';
 import { HomepageComponent } from './news/pages/homepage/homepage.component';
-import { FakeBackendProvider } from './auth/helpers/fake_backend.interceptor';
+import { AuthenticationInterceptor } from './auth/helpers/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -59,8 +58,11 @@ import { FakeBackendProvider } from './auth/helpers/fake_backend.interceptor';
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
+     
     },
-    FakeBackendProvider,
+    
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
+    
   ],
   bootstrap: [AppComponent],
 })
