@@ -22,7 +22,6 @@ public class ApplicationConfiguration {
                 .paths(PathSelectors.any())
                 .build();
     }
-
     private ApiInfo apiInfo() {
         return new ApiInfo("DBProject", "myApp", "1.0.0", " ",
                 new Contact("dbProject", "", ""), "license", "",

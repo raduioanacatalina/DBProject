@@ -26,8 +26,7 @@ public class User {
     private String password;
     @Column(nullable = false)
     private String email;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Enumerated
+    @Column(columnDefinition = "smallint")
     private Role role;
-    private String jwt;
 }

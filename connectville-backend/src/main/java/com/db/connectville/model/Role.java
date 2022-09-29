@@ -1,6 +1,6 @@
 package com.db.connectville.model;
 
 public enum Role {
-    admin,
-    user
+    user,   // 0
+    admin  // 1
 }

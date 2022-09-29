@@ -17,13 +17,14 @@ public class JWTUtils {
 
     public String generateJWT(User user) {
         Map<String, String> payloadClaims = new HashMap<>();
-        payloadClaims.put("Firstname", user.getFirstName());
-        payloadClaims.put("Lastname", user.getLastName());
-        payloadClaims.put("Email", user.getEmail());
-        payloadClaims.put("Username", user.getUsername());
+        payloadClaims.put("firstName", user.getFirstName());
+        payloadClaims.put("lastName", user.getLastName());
+        payloadClaims.put("email", user.getEmail());
+        payloadClaims.put("username", user.getUsername());
+        payloadClaims.put("role", user.getRole().toString());
         return JWT.create()
                 .withPayload(payloadClaims)
-                .withIssuer("issuer")
+                .withIssuer("connectville")
                 .withIssuedAt(new Date())
                 .sign(algorithm);
     }
