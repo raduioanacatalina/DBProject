@@ -14,12 +14,11 @@ import javax.persistence.*;
 @Table(name="user_like")
 @Data
 public class UserLike {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "like_id")
-    private Integer likeId;
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int likeId;
+    @Column(nullable = false)
     private int userId;
-    @Column(name = "news_id")
+    @Column(nullable = false)
     private int newsId;
 }

@@ -12,10 +12,9 @@ import javax.persistence.*;
 @ApiModel
 @Table(name = "user_follow")
 public class UserFollow {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name="follow_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int followId;
-    @Column(name="user_id")
+    @Column(nullable = false)
     private int userId;
 }

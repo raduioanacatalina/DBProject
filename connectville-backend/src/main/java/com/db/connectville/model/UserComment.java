@@ -12,14 +12,13 @@ import javax.persistence.*;
 @Getter
 @ApiModel
 public class UserComment {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name ="comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int commentId;
-    @Column(name="user_id")
+    @Column(nullable = false)
     private int userId;
-    @Column(name="news_id")
+    @Column(nullable = false)
     private int newsId;
-    @Column(name="text")
+    @Column(nullable = false)
     private String text;
 }
