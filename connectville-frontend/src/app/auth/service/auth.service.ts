@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -15,13 +15,27 @@ export class AuthService {
     this._isLoggedIn$.next(!!token);
   }
 
-  login(username: string, password: string) {
-    return this.http.post('login', { username, password }).pipe(
-      tap((response: any) => {
-        this._isLoggedIn$.next(true);
-        localStorage.setItem('auth-token', response.token);
-      })
-    );
+  // login(username: string, password: string) {
+  //   return this.http.post('login', { username, password }).pipe(
+  //     tap((response: any) => {
+  //       this._isLoggedIn$.next(true);
+  //       localStorage.setItem('auth-token', response.token);
+  //     })
+  //   );
+  // }
+  login(username:string, password: string){
+    return of({token: 'asd'}).pipe(
+          tap((response: any) => {
+            this._isLoggedIn$.next(true);
+            localStorage.setItem('auth-token', response.token);
+           })
+         );
+  }
+
+  logout(){
+    localStorage.removeItem('auth-token');
+    this._isLoggedIn$.next(false);
+
   }
 
   getToken() {
