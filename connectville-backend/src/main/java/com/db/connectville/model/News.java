@@ -17,7 +17,8 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int postId;
-
+    @Column(name = "title")
+    private String title;
     @Column(name = "image")
     private String image;
     @Column(name = "link")
