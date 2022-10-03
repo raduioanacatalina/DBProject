@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/service/auth.service';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, Validators.required),
   })
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
 
   submitForm() {
     if (this.form.invalid) {
@@ -22,10 +23,16 @@ export class LoginComponent implements OnInit {
     }
     this.authService
       .login(this.form.get('username')?.value!, this.form.get('password')?.value!)
-      .subscribe((response) => {
-        this.router.navigate(['/homepage']);
-      });
+      .subscribe({
+        next: () => {this.router.navigate(['/homepage']); },
+        error: () => { this.showInvalidCredentialsMessage(); }
+        })
   }
+
+  showInvalidCredentialsMessage() {
+    this._snackBar.open("Password incorrect!", "Ok");
+  }
+
   
   ngOnInit(): void {
   }

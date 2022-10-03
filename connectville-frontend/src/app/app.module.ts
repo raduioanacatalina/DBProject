@@ -20,6 +20,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/pages/login/login.component';
@@ -48,6 +49,7 @@ import { AuthenticationInterceptor } from './auth/helpers/authentication.interce
     MatSliderModule,
     MatCardModule,
     MatToolbarModule,
+    MatSnackBarModule,
     FlexLayoutModule,
     AppRoutingModule,
     ReactiveFormsModule,
