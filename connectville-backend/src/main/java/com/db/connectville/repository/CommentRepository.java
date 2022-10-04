@@ -10,4 +10,6 @@ import java.util.List;
 public interface CommentRepository  extends JpaRepository<UserComment, Integer> {
     List<UserComment> getAllByNewsId(Integer newsId);
 
+    List<UserComment> deletebyNewsId(Integer newsId);
+
 }
