@@ -8,15 +8,19 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "groups")
 @NoArgsConstructor
 @Getter
 @Setter
 @ApiModel
-@Table(name = "user_follow")
-public class UserFollow {
-    @Id
+public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int followId;
-    @Column(nullable = false)
-    private int userId;
+    @Id
+    @Column(name = "group_id")
+    private int groupId;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "description")
+    private String description;
+
 }

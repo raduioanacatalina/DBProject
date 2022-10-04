@@ -3,6 +3,7 @@ package com.db.connectville.model;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name="user_comment")
 @NoArgsConstructor
 @Getter
+@Setter
 @ApiModel
 public class UserComment {
     @Id

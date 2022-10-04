@@ -3,6 +3,7 @@ package com.db.connectville.model;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Table(name = "news")
 @NoArgsConstructor
 @Getter
+@Setter
 @ApiModel
 public class News {
     @Id

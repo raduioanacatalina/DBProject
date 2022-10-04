@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @NoArgsConstructor
 @Getter
+@Setter
 @ApiModel
 public class User {
     @Id
