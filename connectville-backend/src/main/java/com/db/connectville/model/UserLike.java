@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class UserLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int likeId;
+    private int id;
     @Column(nullable = false)
     private int userId;
     @Column(nullable = false)

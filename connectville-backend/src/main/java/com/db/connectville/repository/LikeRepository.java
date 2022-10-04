@@ -12,7 +12,7 @@ public interface LikeRepository extends JpaRepository<UserLike, Integer> {
     List<UserLike> getAllByNewsId(Integer newsId);
     List<UserLike> getAllByUserId(Integer userId);
     UserLike findByNewsIdAndUserId(Integer userId, Integer NewsId);
-    void deleteByLikeId(Integer likeId);
-    List<UserLike> deletebyNewsId(Integer newsId);
+    void deleteById(Integer likeId);
+    List<UserLike> deleteByNewsId(Integer newsId);
 
 }

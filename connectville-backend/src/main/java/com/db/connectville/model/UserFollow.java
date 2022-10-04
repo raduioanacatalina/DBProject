@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class UserFollow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int followId;
+    private int id;
     @Column(nullable = false)
     private int userId;
 }

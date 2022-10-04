@@ -7,13 +7,13 @@ import com.db.connectville.repository.CommentRepository;
 import com.db.connectville.repository.GroupNewsRepository;
 import com.db.connectville.repository.LikeRepository;
 import com.db.connectville.repository.NewsRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NewsService {
 
     private final NewsRepository newsRepository;
@@ -24,7 +24,7 @@ public class NewsService {
 
     //support for editing news
     public void editNews(News news) {
-        News editedNews = newsRepository.getNewsById(news.getPostId());
+        News editedNews = newsRepository.getNewsById(news.getId());
         editedNews.setPinned(news.isPinned());
         editedNews.setImage(news.getImage());
         editedNews.setText(news.getText());
@@ -40,11 +40,11 @@ public class NewsService {
         List<UserComment> userComments = commentRepository.getAllByNewsId(newsId);
         List<UserLike> userLikes = likeRepository.getAllByNewsId(newsId);
         for(UserComment userComment : userComments) {
-            commentRepository.deletebyNewsId(userComment.getCommentId());
+            commentRepository.deleteByNewsId(userComment.getId());
         }
 
         for(UserLike userLike : userLikes) {
-           likeRepository.deletebyNewsId(userLike.getLikeId());
+           likeRepository.deleteByNewsId(userLike.getId());
         }
 
         newsRepository.deleteById(newsId);
