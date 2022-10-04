@@ -1,5 +1,6 @@
 package com.db.connectville.controller.config;
 
+import com.db.connectville.exception.InvalidCredentialsException;
 import com.db.connectville.exception.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,5 +15,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException() {
         return new ResponseEntity<>("User does not exist!", new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(value = InvalidCredentialsException.class)
+    public ResponseEntity<Object> handleInvalidCredentialsException() {
+        return new ResponseEntity<>("Wrong password! Please try again!", new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 }

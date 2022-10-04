@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @NoArgsConstructor
 @Getter
+@Setter
 @ApiModel
 public class User {
     @Id
@@ -28,4 +29,14 @@ public class User {
     @Enumerated
     @Column(columnDefinition = "smallint")
     private Role role;
+
+    public User(int id, String lastName, String firstName, String username, String password, String email, Role role) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 }
