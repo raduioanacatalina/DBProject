@@ -15,6 +15,7 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['login']);
   }
   ngOnInit(): void {
+    this.authService.loggedInUser$.subscribe(console.log)
   }
 
 }

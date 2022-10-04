@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../service/auth.service';
 
 @Injectable({
@@ -24,9 +24,9 @@ export class IsAuthenticatedGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.isLoggedIn$.pipe(
-      tap((isLoggedIn) => {
-        if (!isLoggedIn) {
+    return this.authService.loggedInUser$.pipe(map((loggedInUser) => loggedInUser != null ),
+    tap((loggedInUser) => {
+        if (!loggedInUser) {
           this.router.navigate(['login']);
         }
       })
