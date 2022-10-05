@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../model/user.model';
 
 @Injectable({
@@ -18,22 +19,22 @@ export class AuthService {
     }
   }
 
-  // login(username: string, password: string) {
-  //   return this.http.post('login', { username, password }).pipe(
-  //     tap((response: any) => {
-  //       this._isLoggedIn$.next(true);
-  //       localStorage.setItem('auth-token', response.token);
-  //     })
-  //   );
-  // }
-  login(username:string, password: string){
-    return of({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJsYXN0TmFtZSI6IkRvZSIsImZpcnN0TmFtZSI6IkpvaG4iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsInJvbGUiOiJ1c2VyIn0.VgWLhFkDCLcQ79n4E6AQw3j4m2fgGqoxm3XnX0e2-18'}).pipe(
-          tap((response: any) => {
-            this._loggedInUser$.next(this.parseJwt(response.token));
-            localStorage.setItem('auth-token', response.token);
-           })
-         );
+  login(username: string, password: string) {
+    return this.http.post(environment.apiUrl + "/users/login", { username, password }).pipe(
+      tap((response: any) => {
+        this._loggedInUser$.next(this.parseJwt(response.token));
+        localStorage.setItem('auth-token', response.token);
+      })
+    );
   }
+  // login(username:string, password: string){
+  //   return of({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJsYXN0TmFtZSI6IkRvZSIsImZpcnN0TmFtZSI6IkpvaG4iLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsInJvbGUiOiJ1c2VyIn0.VgWLhFkDCLcQ79n4E6AQw3j4m2fgGqoxm3XnX0e2-18'}).pipe(
+  //         tap((response: any) => {
+  //           this._loggedInUser$.next(this.parseJwt(response.token));
+  //           localStorage.setItem('auth-token', response.token);
+  //          })
+  //        );
+  // }
 
   logout(){
     localStorage.removeItem('auth-token');
