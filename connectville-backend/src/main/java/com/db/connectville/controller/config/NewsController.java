@@ -10,6 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class NewsController {
     @PostMapping("/edit/{news_id}")
     public void createAndPostNews(@PathVariable(name = "news_id") int pathId) {
-
     }
 }
