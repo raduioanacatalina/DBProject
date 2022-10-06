@@ -19,13 +19,15 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int id;
+    //TO DO: remove title
     @Column(name = "title")
     private String title;
     @Column(name = "image")
-    //TO DO: switch to binary data type
     private byte[] image;
+    //TO DO: remove link
     @Column(name = "link")
     private String link;
+    //may contain links
     @Column(name = "text")
     private String text;
     @Column(name = "pinned")

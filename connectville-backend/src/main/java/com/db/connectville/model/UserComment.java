@@ -23,4 +23,5 @@ public class UserComment {
     private int newsId;
     @Column(nullable = false)
     private String text;
+    //TO DO: creation date
 }
