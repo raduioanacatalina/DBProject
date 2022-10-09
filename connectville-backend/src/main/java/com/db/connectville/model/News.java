@@ -1,15 +1,18 @@
 package com.db.connectville.model;
 
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "news")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,26 +20,26 @@ import java.sql.Timestamp;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column
     private int id;
-    //TO DO: remove title
-    @Column(name = "title")
-    private String title;
-    @Column(name = "image")
+    @Column
     private byte[] image;
-    //TO DO: remove link
-    @Column(name = "link")
-    private String link;
     //may contain links
-    @Column(name = "text")
+    @Column
     private String text;
-    @Column(name = "pinned")
+    @Column
     private boolean isPinned;
     //TO DO: add relationship to user entity
-    @Column(name = "publisher")
+    @Column
     private String publisher;
-    @Column(name = "publish_date")
-    private Timestamp publishDate;
-
-
+    @Column
+    private Date publishDate;
+    @Column(name = "topics")
+    @ElementCollection
+    @CollectionTable(name = "news_topics", joinColumns = @JoinColumn(name = "id"))
+    private Set<String> topics;
+    @Column
+    private int likes;
+    @Column
+    private int comments;
 }

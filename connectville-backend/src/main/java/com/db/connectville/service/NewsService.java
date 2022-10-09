@@ -28,10 +28,6 @@ public class NewsService {
         editedNews.setPinned(news.isPinned());
         editedNews.setImage(news.getImage());
         editedNews.setText(news.getText());
-        editedNews.setTitle(news.getTitle());
-        editedNews.setLink(news.getLink());
-
-
     }
 
     //support for deleting news
