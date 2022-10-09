@@ -11,5 +11,4 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     News getNewsByTitle(String title);
     News getNewsById(Integer id);
     void deleteById(Integer id);
-    List<News> getAllNews();
 }

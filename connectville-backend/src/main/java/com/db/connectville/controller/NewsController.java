@@ -18,7 +18,7 @@ public class NewsController {
 
     @GetMapping
     public List<News> getAllNews() {
-        return newsRepository.getAllNews();
+        return newsRepository.findAll();
     }
 
 }
