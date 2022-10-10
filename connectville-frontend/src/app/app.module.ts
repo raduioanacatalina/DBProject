@@ -26,12 +26,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/pages/login/login.component';
 import { HomepageComponent } from './news/pages/homepage/homepage.component';
 import { AuthenticationInterceptor } from './auth/helpers/authentication.interceptor';
+import { CreateNewsComponent } from './admin/pages/create-news/create-news.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomepageComponent,
+    CreateNewsComponent,
   ],
   imports: [
     BrowserModule,

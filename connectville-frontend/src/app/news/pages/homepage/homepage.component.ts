@@ -10,9 +10,8 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 export class HomepageComponent implements OnInit {
 
   constructor(private authService:AuthService, private router:Router) { }
-  loginClicked() {
-    this.authService.logout();
-    this.router.navigate(['login']);
+  createNewsClicked() {
+    this.router.navigate(['createNews']);
   }
   ngOnInit(): void {
     this.authService.loggedInUser$.subscribe(console.log)
