@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/auth/service/auth.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
   constructor(private authService:AuthService, private router:Router) { }
   createNewsClicked() {
