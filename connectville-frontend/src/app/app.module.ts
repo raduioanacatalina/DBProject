@@ -21,6 +21,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/pages/login/login.component';
@@ -50,6 +51,7 @@ import { AuthenticationInterceptor } from './auth/helpers/authentication.interce
     MatCardModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatListModule,
     FlexLayoutModule,
     AppRoutingModule,
     ReactiveFormsModule,
