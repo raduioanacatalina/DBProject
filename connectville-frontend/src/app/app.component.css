@@ -1,0 +1,19 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+  .homepage{
+    margin-right: 30px;
+  }
+  .myForm{
+    display: flex;
+    flex-direction: column;
+  }
+  .myInput{
+    margin: 20px 20px 0 20px;
+  }
+  .myButton{
+    margin-top: 20px;
+    margin-left: 50%;
+    width: 90px;
+
+  }

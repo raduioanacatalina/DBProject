@@ -1,9 +1,4 @@
-<mat-toolbar color="primary">
-    <span fxLayoutAlign="center">Create News</span>
-    <div class="spacer"></div>
-    <button mat-raised-button color="primary" class="homepage"  (click)="homepageClicked()">Homepage</button>
-    <button mat-raised-button color="primary" (click)="loginClicked()">Logout</button>
-  </mat-toolbar>
+
   <!-- form -->
   <form [formGroup] = "form" class="myForm" (ngSubmit) = "submitDetails(form)">
     <mat-form-field appearance = "standard" class="myInput">

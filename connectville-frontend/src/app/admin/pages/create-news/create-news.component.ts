@@ -24,10 +24,6 @@ export class CreateNewsComponent implements OnInit {
     
     }); }
 
-  loginClicked() {
-    this.authService.logout();
-    this.router.navigate(['login']);
-  }
   homepageClicked() {
     this.router.navigate(['homepage']);
   }
@@ -37,7 +33,7 @@ export class CreateNewsComponent implements OnInit {
   submitDetails(form: any) {  
       
   console.log(form.value);
-    
+  
     }
 
 }
