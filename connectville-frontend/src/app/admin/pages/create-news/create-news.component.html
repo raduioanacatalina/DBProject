@@ -1,5 +1,10 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
-  <mat-card fxFlex="45">
+  <mat-card fxFlex="35">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span>Create News</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
     <form [formGroup]="form" class="myForm" (ngSubmit)="submitDetails(form)">
       <mat-form-field appearance="standard" class="myInput">
         <mat-label> Text </mat-label>
