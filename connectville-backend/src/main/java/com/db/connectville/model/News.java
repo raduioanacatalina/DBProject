@@ -39,9 +39,7 @@ public class News {
     @CollectionTable(name = "news_topics", joinColumns = @JoinColumn(name = "id"))
     private Set<String> topics;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "news_id")
     private Set<UserLike> likes;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "news_id")
     private Set<UserComment> comments;
 }

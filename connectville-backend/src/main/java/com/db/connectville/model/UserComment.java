@@ -21,8 +21,8 @@ public class UserComment {
     private int id;
     @Column(nullable = false)
     private int userId;
-    @Column(name = "news_id", nullable = false)
-    private int newsId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private News news;
     @Column(nullable = false)
     private String text;
     //TO DO: creation date
