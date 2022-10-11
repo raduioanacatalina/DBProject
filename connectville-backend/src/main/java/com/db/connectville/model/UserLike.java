@@ -1,15 +1,13 @@
 package com.db.connectville.model;
 
 import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ApiModel
@@ -21,6 +19,6 @@ public class UserLike {
     private int id;
     @Column(nullable = false)
     private int userId;
-    @Column(nullable = false)
+    @Column(name = "news_id", nullable = false)
     private int newsId;
 }

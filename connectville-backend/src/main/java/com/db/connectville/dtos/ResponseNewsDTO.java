@@ -1,5 +1,7 @@
 package com.db.connectville.dtos;
 
+import com.db.connectville.model.UserComment;
+import com.db.connectville.model.UserLike;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +20,8 @@ public class ResponseNewsDTO {
     private String publisher;
     public Date publishDate;
     private String text;
-    private byte[] image;
-    private int likes;
-    private int comments;
+    private String image;
+    private Set<UserLike> likes;
+    private Set<UserComment> comments;
     private Set<String> topics;
 }

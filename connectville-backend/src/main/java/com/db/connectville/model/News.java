@@ -23,23 +23,25 @@ public class News {
     @Column
     private int id;
     @Column
-    private byte[] image;
+    private String image;
     //may contain links
     @Column
     private String text;
-    @Column
+    @Column(nullable = false)
     private boolean isPinned;
     //TO DO: add relationship to user entity
-    @Column
-    private String publisher;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User publisher;
     @Column
     private Date publishDate;
     @Column(name = "topics")
     @ElementCollection
     @CollectionTable(name = "news_topics", joinColumns = @JoinColumn(name = "id"))
     private Set<String> topics;
-    @Column
-    private int likes;
-    @Column
-    private int comments;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "news_id")
+    private Set<UserLike> likes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "news_id")
+    private Set<UserComment> comments;
 }

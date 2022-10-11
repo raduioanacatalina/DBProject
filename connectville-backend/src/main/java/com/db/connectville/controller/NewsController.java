@@ -22,15 +22,16 @@ public class NewsController {
     @GetMapping("")
     public List<ResponseNewsDTO> getAllNews() {
         return newsRepository.findAll().stream()
-                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher(), news.getPublishDate(), news.getText(),
-                        news.getImage(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + news.getPublisher().getFirstName(),
+                        news.getPublishDate(), news.getText(), news.getImage(), news.getLikes(), news.getComments(),
+                        news.getTopics())).collect(Collectors.toList());
     }
 
     @GetMapping("/filter")
     public List<ResponseNewsDTO> getAllNewsByTopic(@RequestParam(name = "topic") String topic) {
         return newsRepository.findAll().stream()
                 .filter(news -> news.getTopics().contains(topic))
-                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher(), news.getPublishDate(), news.getText(),
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + news.getPublisher(), news.getPublishDate(), news.getText(),
                         news.getImage(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
     }
 
