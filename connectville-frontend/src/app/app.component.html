@@ -1,6 +1,10 @@
-<mat-toolbar color="primary">
+<div class="header-wrapper">
+  <mat-toolbar color="primary">
     <span fxLayoutAlign="center">Conectville</span>
     <div class="spacer"></div>
-    <button mat-raised-button color="primary" (click)="logoutClicked()">Logout</button>
+    <button mat-raised-button color="primary" (click)="logoutClicked()">
+      Logout
+    </button>
   </mat-toolbar>
+</div>
 <router-outlet></router-outlet>

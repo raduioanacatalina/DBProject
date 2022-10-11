@@ -1,8 +1,8 @@
-export interface User {
+export interface News {
    
     id: number;
 
-    image: Int8Array;
+    image?: Int8Array;
    
     publisher: string;
     
@@ -16,5 +16,5 @@ export interface User {
 
     comments: number;
 
-    topics: Set<String>;
+    topics: string[]; 
 }

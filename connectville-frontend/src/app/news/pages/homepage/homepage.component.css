@@ -13,9 +13,18 @@
 
 .cards-container {
   margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin: auto;
+  align-items: center;
 }
 
 .item {
   /* font-size: 2em; */
   padding: 1em;
 }
+
+/* .header-wrapper {
+  height: 10rem;
+} */
