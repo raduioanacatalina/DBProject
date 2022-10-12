@@ -8,7 +8,8 @@ import { CreateNewsComponent } from './admin/pages/create-news/create-news.compo
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'homepage', component: HomepageComponent, canActivate: [IsAuthenticatedGuard]},
-    {path: 'createNews', component: CreateNewsComponent, canActivate: [IsAuthenticatedGuard]}
+    {path: 'createNews', component: CreateNewsComponent, canActivate: [IsAuthenticatedGuard]},
+    {path: '**', redirectTo: '/login'}
 ]
 
 @NgModule({

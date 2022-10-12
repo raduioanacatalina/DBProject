@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
+import { NewsService } from 'src/app/shared/service/news.service';
 import { FileUploadService } from './service/file-upload.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class CreateNewsComponent implements OnInit {
   form: FormGroup;
 
   constructor(
+    private newsService: NewsService,
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
@@ -47,7 +49,7 @@ export class CreateNewsComponent implements OnInit {
   ngOnInit(): void {}
 
   submitDetails(form: any) {
-    console.log(form.value);
+    this.newsService.createNews(this.form.controls['text'].value, [this.form.controls['topics'].value]);
   }
 
   selectFiles(event: any): void {

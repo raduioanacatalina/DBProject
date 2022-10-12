@@ -11,8 +11,19 @@ export class NewsService {
   constructor(private http: HttpClient) {}
 
   createNews(text: string, topics: string[]):Observable<News> {
-    return this.http
-      .post<News>(environment.apiUrl + '/news', { text, topics });
+    // return this.http
+    //   .post<News>(environment.apiUrl + '/news', { text, topics });
+    return of ( {
+      id: 1,
+      image: undefined,
+      publisher: "Alex",
+      text:"dada",
+      publishDate: new Date(),
+      isPinned: true,
+      likes:20,
+      comments: 20,
+      topics: ["nunu", "lalaa"]
+    },)
   }
 
   getAllNews(): Observable<News[]> {
