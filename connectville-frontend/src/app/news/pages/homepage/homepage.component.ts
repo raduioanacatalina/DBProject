@@ -9,7 +9,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { CreateNewsComponent } from 'src/app/admin/pages/create-news/create-news.component';
-import { DialogOverviewComponent } from '../dialog-overview/dialog-overview.component';
+import { DialogOverviewComponent } from '../../components/dialog-overview/dialog-overview.component';
 
 export interface DialogData {
   comment: string;

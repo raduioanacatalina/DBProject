@@ -30,7 +30,7 @@ import { LoginComponent } from './auth/pages/login/login.component';
 import { HomepageComponent } from './news/pages/homepage/homepage.component';
 import { AuthenticationInterceptor } from './auth/helpers/authentication.interceptor';
 import { CreateNewsComponent } from './admin/pages/create-news/create-news.component';
-import { DialogOverviewComponent } from './news/pages/dialog-overview/dialog-overview.component';
+import { DialogOverviewComponent } from './news/components/dialog-overview/dialog-overview.component';
 
 @NgModule({
   declarations: [
@@ -63,18 +63,20 @@ import { DialogOverviewComponent } from './news/pages/dialog-overview/dialog-ove
     ReactiveFormsModule,
     MatDialogModule,
     MatBottomSheetModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
-     
     },
-    
-    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
-    
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

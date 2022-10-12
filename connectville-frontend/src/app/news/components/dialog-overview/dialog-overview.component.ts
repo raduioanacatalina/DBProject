@@ -4,7 +4,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { DialogData } from '../homepage/homepage.component';
+import { DialogData } from '../../pages/homepage/homepage.component';
 
 @Component({
   selector: 'app-dialog-overview',
