@@ -19,6 +19,6 @@ public class UserLike {
     private int id;
     @Column(nullable = false)
     private int userId;
-    @Column(name = "news_id", nullable = false)
-    private int newsId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private News news;
 }
