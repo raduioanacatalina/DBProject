@@ -21,6 +21,7 @@ public class ResponseNewsDTO {
     public Date publishDate;
     private String text;
     private String image;
+    private boolean pinned;
     private Set<UserLike> likes;
     private Set<UserComment> comments;
     private Set<String> topics;

@@ -1,5 +1,6 @@
 package com.db.connectville.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class News {
     @Column(nullable = false)
     private boolean isPinned;
     //TO DO: add relationship to user entity
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User publisher;
     @Column
     private Date publishDate;
@@ -38,8 +39,10 @@ public class News {
     @ElementCollection
     @CollectionTable(name = "news_topics", joinColumns = @JoinColumn(name = "id"))
     private Set<String> topics;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany(targetEntity = UserLike.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserLike> likes;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany(targetEntity = UserComment.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserComment> comments;
 }

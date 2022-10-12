@@ -1,5 +1,6 @@
 package com.db.connectville.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
@@ -19,6 +20,8 @@ public class UserLike {
     private int id;
     @Column(nullable = false)
     private int userId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "news_id")
     private News news;
 }
