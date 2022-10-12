@@ -4,6 +4,7 @@ import com.db.connectville.dtos.CreateAndEditNewsDTO;
 import com.db.connectville.dtos.ResponseNewsDTO;
 import com.db.connectville.exception.NewsNotFoundException;
 import com.db.connectville.model.News;
+import com.db.connectville.model.UserComment;
 import com.db.connectville.repository.NewsRepository;
 import com.db.connectville.repository.UserRepository;
 import com.db.connectville.service.JWTUtils;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -144,6 +146,17 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), "Mocked Name", rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
                 rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+    }
+
+    @GetMapping("/{id}/comments")
+    public Set<UserComment> getNewsCommentsById(@PathVariable(name = "id") int id) {
+        News rezNews = newsRepository.getNewsById(id);
+
+        if (rezNews == null) {
+            throw new NewsNotFoundException();
+        }
+
+        return rezNews.getComments();
     }
 
 }
