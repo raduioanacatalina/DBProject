@@ -10,20 +10,20 @@ import { environment } from 'src/environments/environment';
 export class NewsService {
   constructor(private http: HttpClient) {}
 
-  createNews(text: string, topics: string[]):Observable<News> {
+  createNews(text: string, topics: string[]): Observable<News> {
     // return this.http
     //   .post<News>(environment.apiUrl + '/news', { text, topics });
-    return of ( {
+    return of({
       id: 1,
       image: undefined,
-      publisher: "Alex",
-      text:"dada",
+      publisher: 'Alex',
+      text: 'dada',
       publishDate: new Date(),
       isPinned: true,
-      likes:20,
+      likes: 20,
       comments: 20,
-      topics: ["nunu", "lalaa"]
-    },)
+      topics: ['nunu', 'lalaa'],
+    });
   }
 
   getAllNews(): Observable<News[]> {
@@ -32,26 +32,26 @@ export class NewsService {
       {
         id: 1,
         image: undefined,
-        publisher: "Alex",
-        text:"dada",
+        publisher: 'Alex',
+        text: 'dada',
         publishDate: new Date(),
-        isPinned: true,
-        likes:20,
+        isPinned: false,
+        likes: 20,
         comments: 20,
-        topics: ["nunu", "lalaa"]
+        topics: ['nunu', 'lalaa'],
       },
 
       {
         id: 2,
         image: undefined,
-        publisher: "dan",
-        text:"asdasdsa",
+        publisher: 'dan',
+        text: 'asdasdsa',
         publishDate: new Date(),
         isPinned: true,
-        likes:30,
+        likes: 30,
         comments: 30,
-        topics: ["nunu", "lalaa"]
+        topics: ['nunu', 'lalaa'],
       },
-    ])
+    ]);
   }
 }

@@ -21,27 +21,14 @@ export interface DialogData {
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
-  comment!: string;
   typesOfShoes: string[] = ['HR', 'Legal', 'Tech'];
   newsList: News[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private newsService: NewsService,
-    public dialog: MatDialog
+    private newsService: NewsService
   ) {}
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewComponent, {
-      width: '250px',
-      data: { comment: this.comment },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      this.comment = result;
-    });
-  }
 
   createNewsClicked() {
     this.router.navigate(['createNews']);

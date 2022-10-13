@@ -13,34 +13,12 @@
     </mat-selection-list>
   </div>
 
-  <div class="item item-2" fxFlex="20%" fxFlexOrder="3">
-    <mat-icon>push_pin</mat-icon>
-    <p>Pinned</p>
-  </div>
-
   <div class="item item-3" fxFlex>
     <div class="cards-container">
-      <mat-card *ngFor="let news of newsList" class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{ news.publisher }}</mat-card-title>
-          <mat-card-subtitle>{{ news.publishDate }}</mat-card-subtitle>
-        </mat-card-header>
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            {{ news.text }}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button (click)="openDialog()">COMMENT</button>
-        </mat-card-actions>
-      </mat-card>
+      <app-news-card
+        *ngFor="let news of newsList"
+        [news]="news"
+      ></app-news-card>
     </div>
   </div>
 </div>

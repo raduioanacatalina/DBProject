@@ -31,6 +31,7 @@ import { HomepageComponent } from './news/pages/homepage/homepage.component';
 import { AuthenticationInterceptor } from './auth/helpers/authentication.interceptor';
 import { CreateNewsComponent } from './admin/pages/create-news/create-news.component';
 import { DialogOverviewComponent } from './news/components/dialog-overview/dialog-overview.component';
+import { NewsCardComponent } from './news/components/news-card/news-card.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DialogOverviewComponent } from './news/components/dialog-overview/dialo
     HomepageComponent,
     CreateNewsComponent,
     DialogOverviewComponent,
+    NewsCardComponent,
   ],
   imports: [
     BrowserModule,
