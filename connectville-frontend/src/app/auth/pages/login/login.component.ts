@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(
         this.form.get('username')?.value!,
-        this.form.get('password')?.value!,
-        Role.user
+        this.form.get('password')?.value!
       )
       .subscribe({
         next: () => {

@@ -32,9 +32,9 @@ export class CreateNewsComponent implements OnInit {
     private uploadService: FileUploadService
   ) {
     this.form = this.fb.group({
-      text: [null, [Validators.required], [Validators.maxLength(288)]],
+      text: [null, [Validators.required, Validators.maxLength(288)]],
 
-      image: [null, [Validators.required]],
+      image: [null],
 
       topics: [null, [Validators.required]],
     });

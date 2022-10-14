@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/pages/login/login.component';
 import { HomepageComponent } from './news/pages/homepage/homepage.component';
 import { IsAuthenticatedGuard } from './auth/helpers/is-authenticated.guard';
 import { CreateNewsComponent } from './admin/pages/create-news/create-news.component';
+import { AdminGuard } from './auth/helpers/admin.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   {
     path: 'createNews',
     component: CreateNewsComponent,
-    canActivate: [IsAuthenticatedGuard],
+    canActivate: [IsAuthenticatedGuard, AdminGuard],
   },
   { path: '**', redirectTo: '/login' },
 ];

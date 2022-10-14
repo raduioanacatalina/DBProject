@@ -5,10 +5,10 @@
       >{{ news.publisher }}
       <mat-icon *ngIf="news.isPinned">push_pin</mat-icon></mat-card-title
     >
-    <button mat-button *appPermission="'ADMIN'" onclick="deleteNews()">
+    <button mat-button *appPermission="'admin'" onclick="deleteNews()">
       DELETE
     </button>
-    <button mat-button *appPermission="'ADMIN'">PIN</button>
+    <button mat-button *appPermission="'admin'">PIN</button>
     <mat-card-subtitle>{{ news.publishDate }}</mat-card-subtitle>
   </mat-card-header>
   <img
@@ -22,7 +22,7 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button> {{ news.likes }}
+    <button mat-button>LIKE</button> <span>{{ news.likes }}</span>
     <button mat-button (click)="openDialog()">COMMENT</button>
     <button mat-button (click)="openDialogSeeComments()">SEE COMMENTS</button>
   </mat-card-actions>

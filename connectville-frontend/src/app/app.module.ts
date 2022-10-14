@@ -33,6 +33,7 @@ import { CreateNewsComponent } from './admin/pages/create-news/create-news.compo
 import { DialogOverviewComponent } from './news/components/dialog-overview/dialog-overview.component';
 import { NewsCardComponent } from './news/components/news-card/news-card.component';
 import { CommentsPopUpComponent } from './news/components/comments-pop-up/comments-pop-up.component';
+import { PermissionDirective } from './news/directives/permission.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CommentsPopUpComponent } from './news/components/comments-pop-up/commen
     DialogOverviewComponent,
     NewsCardComponent,
     CommentsPopUpComponent,
+    PermissionDirective,
   ],
   imports: [
     BrowserModule,
