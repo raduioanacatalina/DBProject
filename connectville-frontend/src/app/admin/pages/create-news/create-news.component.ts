@@ -32,9 +32,7 @@ export class CreateNewsComponent implements OnInit {
     private uploadService: FileUploadService
   ) {
     this.form = this.fb.group({
-      publisher: [null, [Validators.required]],
-
-      text: [null, [Validators.required]],
+      text: [null, [Validators.required], [Validators.maxLength(288)]],
 
       image: [null, [Validators.required]],
 
@@ -49,7 +47,9 @@ export class CreateNewsComponent implements OnInit {
   ngOnInit(): void {}
 
   submitDetails(form: any) {
-    this.newsService.createNews(this.form.controls['text'].value, [this.form.controls['topics'].value]);
+    this.newsService.createNews(this.form.controls['text'].value, [
+      this.form.controls['topics'].value,
+    ]);
   }
 
   selectFiles(event: any): void {
@@ -110,6 +110,4 @@ export class CreateNewsComponent implements OnInit {
       }
     }
   }
-
-  
 }

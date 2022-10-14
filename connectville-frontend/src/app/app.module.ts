@@ -17,13 +17,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/pages/login/login.component';
@@ -32,6 +32,7 @@ import { AuthenticationInterceptor } from './auth/helpers/authentication.interce
 import { CreateNewsComponent } from './admin/pages/create-news/create-news.component';
 import { DialogOverviewComponent } from './news/components/dialog-overview/dialog-overview.component';
 import { NewsCardComponent } from './news/components/news-card/news-card.component';
+import { CommentsPopUpComponent } from './news/components/comments-pop-up/comments-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NewsCardComponent } from './news/components/news-card/news-card.compone
     CreateNewsComponent,
     DialogOverviewComponent,
     NewsCardComponent,
+    CommentsPopUpComponent,
   ],
   imports: [
     BrowserModule,

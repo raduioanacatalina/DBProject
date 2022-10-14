@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { News } from 'src/app/auth/model/news.model';
+import { News } from '../../model/news.model';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { NewsService } from 'src/app/shared/service/news.service';
 import {
@@ -32,6 +32,10 @@ export class HomepageComponent implements OnInit {
 
   createNewsClicked() {
     this.router.navigate(['createNews']);
+  }
+
+  deleteNews() {
+    this.newsService.deleteNews();
   }
 
   ngOnInit(): void {

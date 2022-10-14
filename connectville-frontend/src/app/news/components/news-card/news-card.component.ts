@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { News } from 'src/app/auth/model/news.model';
+import { NewsService } from 'src/app/shared/service/news.service';
+import { News } from '../../model/news.model';
+import { CommentsPopUpComponent } from '../comments-pop-up/comments-pop-up.component';
 import { DialogOverviewComponent } from '../dialog-overview/dialog-overview.component';
 
 @Component({
@@ -12,7 +14,7 @@ export class NewsCardComponent implements OnInit {
   comment!: string;
   @Input()
   news!: News;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private newsService: NewsService) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
@@ -24,6 +26,14 @@ export class NewsCardComponent implements OnInit {
       console.log('The dialog was closed');
       this.comment = result;
     });
+  }
+
+  openDialogSeeComments() {
+    this.dialog.open(CommentsPopUpComponent);
+  }
+
+  deleteNews() {
+    this.newsService.deleteNews();
   }
 
   ngOnInit(): void {}

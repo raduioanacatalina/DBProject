@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
-import { News } from 'src/app/auth/model/news.model';
+import { News } from 'src/app/news/model/news.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -53,5 +53,11 @@ export class NewsService {
         topics: ['nunu', 'lalaa'],
       },
     ]);
+  }
+
+  public deleteNews() {
+    this.http.delete(environment.apiUrl + 'news/{id}').subscribe((data) => {
+      console.log(data);
+    });
   }
 }
