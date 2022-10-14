@@ -14,6 +14,7 @@ export class NewsCardComponent implements OnInit {
   comment!: string;
   @Input()
   news!: News;
+
   constructor(public dialog: MatDialog, private newsService: NewsService) {}
 
   openDialog(): void {
@@ -34,6 +35,14 @@ export class NewsCardComponent implements OnInit {
 
   deleteNews() {
     this.newsService.deleteNews();
+  }
+
+  increaseLike() {
+    this.news.likes++;
+  }
+
+  pinPost() {
+    this.news.isPinned = true;
   }
 
   ngOnInit(): void {}

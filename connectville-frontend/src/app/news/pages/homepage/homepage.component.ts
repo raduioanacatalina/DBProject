@@ -34,10 +34,6 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['createNews']);
   }
 
-  deleteNews() {
-    this.newsService.deleteNews();
-  }
-
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe((news: News[]) => {
       this.newsList = [...news];
