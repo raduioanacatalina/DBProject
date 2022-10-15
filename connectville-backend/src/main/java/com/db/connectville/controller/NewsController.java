@@ -3,14 +3,16 @@ package com.db.connectville.controller;
 import com.db.connectville.dtos.CreateAndEditNewsDTO;
 import com.db.connectville.dtos.ResponseNewsDTO;
 import com.db.connectville.exception.NewsNotFoundException;
-import com.db.connectville.model.News;
-import com.db.connectville.model.UserComment;
+import com.db.connectville.model.*;
 import com.db.connectville.repository.NewsRepository;
 import com.db.connectville.repository.UserRepository;
 import com.db.connectville.service.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -28,9 +30,23 @@ public class NewsController {
     @GetMapping("")
     public List<ResponseNewsDTO> getAllNews() {
         List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
+                .filter(News::isPinned)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
                         news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+
+        List<ResponseNewsDTO> unpinnedNews = newsRepository.findAll().stream()
+                .filter(news -> !news.isPinned())
+                .sorted(new Comparator<News>() {
+                    public int compare(News n1, News n2) {
+                        return n2.getPublishDate().compareTo(n1.getPublishDate());
+                    }
+                })
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
+                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+
+        rezNews.addAll(unpinnedNews);
 
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
@@ -100,8 +116,25 @@ public class NewsController {
                 rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
     }
 
+    @PutMapping("/{id}/unpin")
+    public ResponseNewsDTO unpinNewsById(@PathVariable(name = "id") int id) {
+        News rezNews = newsRepository.getNewsById(id);
+
+        if (rezNews == null) {
+            throw new NewsNotFoundException();
+        }
+
+        rezNews.setPinned(false);
+        newsRepository.save(rezNews);
+
+        return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
+                rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+    }
+
     @PostMapping("/new")
     public ResponseNewsDTO createNews(@RequestBody CreateAndEditNewsDTO newNews) {
+
         if (newNews == null) {
             throw new NewsNotFoundException();
         }
@@ -111,6 +144,9 @@ public class NewsController {
         createdNews.setImage(newNews.getImage());
         createdNews.setPublishDate(new Date());
         createdNews.setTopics(newNews.getTopics());
+        User user = new User();
+        user.setId(2);
+        createdNews.setPublisher(user);
 
         //TO DO: get logged in user and complete the createdNews fields
 
@@ -121,7 +157,7 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseNewsDTO createNews(@PathVariable(name = "id") int id, @RequestBody CreateAndEditNewsDTO newNews) {
+    public ResponseNewsDTO editNews(@PathVariable(name = "id") int id, @RequestBody CreateAndEditNewsDTO newNews) {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
@@ -135,7 +171,7 @@ public class NewsController {
         if (!newNews.getImage().equals("")) {
             rezNews.setImage(newNews.getImage());
         }
-        if(!newNews.getTopics().isEmpty()) {
+        if (!newNews.getTopics().isEmpty()) {
             rezNews.setTopics(newNews.getTopics());
         }
         rezNews.setPublishDate(new Date());
@@ -157,6 +193,59 @@ public class NewsController {
         }
 
         return rezNews.getComments();
+    }
+
+    @GetMapping("/{id}/likes")
+    public Set<UserLike> getNewsLikesById(@PathVariable(name = "id") int id) {
+        News rezNews = newsRepository.getNewsById(id);
+
+        if (rezNews == null) {
+            throw new NewsNotFoundException();
+        }
+
+        return rezNews.getLikes();
+    }
+
+    @PutMapping("/{id}/like")
+    public ResponseNewsDTO likeNewsById(@PathVariable(name = "id") int id) {
+        News rezNews = newsRepository.getNewsById(id);
+
+        if (rezNews == null) {
+            throw new NewsNotFoundException();
+        }
+
+        UserLike userLike = new UserLike();
+        userLike.setUserId(2);
+        userLike.setNews(rezNews);
+        rezNews.getLikes().add(userLike);
+
+        newsRepository.save(rezNews);
+
+        return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
+                rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+    }
+
+    @PutMapping("/{id}/comment")
+    public ResponseNewsDTO commentOnNewsById(@PathVariable(name = "id") int id, @RequestBody String comment) {
+        News rezNews = newsRepository.getNewsById(id);
+
+        if (rezNews == null) {
+            throw new NewsNotFoundException();
+        }
+
+        UserComment userComment = new UserComment();
+        userComment.setUserId(2);
+        userComment.setNews(rezNews);
+        userComment.setText(comment);
+
+        rezNews.getComments().add(userComment);
+
+        newsRepository.save(rezNews);
+
+        return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
+                rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
     }
 
 }
