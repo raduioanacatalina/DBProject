@@ -5,20 +5,13 @@
   fxLayoutGap="10px"
   fxLayoutGap.xs="0"
 >
-  <div class="item item-1" fxFlex="15%">
-    <mat-selection-list #shoes [multiple]="false">
-      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-        {{ shoe }}
-      </mat-list-option>
-    </mat-selection-list>
-  </div>
+  <!-- <mat-selection-list #shoes [multiple]="false">
+    <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+      {{ shoe }}
+    </mat-list-option>
+  </mat-selection-list> -->
 
-  <div class="item item-3" fxFlex>
-    <div class="cards-container">
-      <app-news-card
-        *ngFor="let news of newsList"
-        [news]="news"
-      ></app-news-card>
-    </div>
+  <div class="cards-container">
+    <app-news-card *ngFor="let news of newsList" [news]="news"></app-news-card>
   </div>
 </div>

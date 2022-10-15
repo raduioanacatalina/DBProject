@@ -1,10 +1,10 @@
 .spacer {
   flex: 1 1 auto;
 }
-.homepage {
+/* .homepage {
   margin-right: 30px;
-}
-.myForm {
+} */
+/* .myForm {
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +15,7 @@
   margin-top: 20px;
   margin-left: 50%;
   width: 90px;
-}
+} */
 /* 
 .mat-toolbar {
   position: fixed;
@@ -24,3 +24,7 @@
 .header-wrapper {
   height: 10rem;
 } */
+
+.mat-raised-button {
+  margin-right: 5px;
+}

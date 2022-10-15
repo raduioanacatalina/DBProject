@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'createNews',
     component: CreateNewsComponent,
-    canActivate: [IsAuthenticatedGuard, AdminGuard],
+    canActivate: [IsAuthenticatedGuard],
   },
   { path: '**', redirectTo: '/login' },
 ];

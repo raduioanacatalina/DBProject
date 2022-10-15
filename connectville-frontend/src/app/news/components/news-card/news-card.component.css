@@ -1,5 +1,5 @@
 .example-card {
-  max-width: 400px;
+  max-width: 550px;
 }
 
 .example-header-image {
@@ -10,3 +10,13 @@
 .title-and-pin-container {
   display: flex;
 }
+
+.mat-fab {
+  /* border-radius: 25%; */
+  margin-right: 10px;
+}
+
+/* #like-button:hover {
+  background-color: #24a0ed;
+  color: white;
+} */

@@ -1,8 +1,11 @@
 <div class="header-wrapper">
-  <mat-toolbar color="primary">
+  <mat-toolbar class="sticky-toolbar" color="primary">
     <span fxLayoutAlign="center">Conectville</span>
     <div class="spacer"></div>
-    <button mat-raised-button color="primary" (click)="logoutClicked()">
+    <button mat-raised-button>HR</button>
+    <button mat-raised-button>Legal</button>
+    <button mat-raised-button>Tech</button>
+    <button mat-raised-button color="warn" (click)="logoutClicked()">
       Logout
     </button>
   </mat-toolbar>
