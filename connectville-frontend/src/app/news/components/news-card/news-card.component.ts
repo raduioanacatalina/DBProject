@@ -34,15 +34,18 @@ export class NewsCardComponent implements OnInit {
   }
 
   deleteNews() {
-    this.newsService.deleteNews();
+    this.newsService.deleteNews(this.news.id);
   }
 
   increaseLike() {
     this.news.likes++;
   }
 
-  pinPost() {
+  pinPost():void {
+    if(this.news.isPinned===false)
     this.news.isPinned = true;
+    else this.news.isPinned=false;
+    console.log (this.news);
   }
 
   ngOnInit(): void {}

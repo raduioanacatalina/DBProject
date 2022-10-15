@@ -17,7 +17,7 @@
       mat-fab
       color="primary"
       aria-label="Example icon button with a delete icon"
-      onclick="deleteNews()"
+      (click)="deleteNews()"
     >
       <mat-icon>delete</mat-icon>
     </button>
@@ -27,7 +27,7 @@
       mat-fab
       color="warn"
       aria-label="Example icon button with a bookmark icon"
-      onclick="pinPost()"
+      (click)="pinPost()"
     >
       <mat-icon>bookmark</mat-icon>
     </button>

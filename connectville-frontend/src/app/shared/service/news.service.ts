@@ -55,8 +55,8 @@ export class NewsService {
     ]);
   }
 
-  public deleteNews() {
-    this.http.delete(environment.apiUrl + 'news/{id}').subscribe((data) => {
+  public deleteNews(id:number) {
+    this.http.delete(environment.apiUrl + 'news/'+id).subscribe((data) => {
       console.log(data);
     });
   }
