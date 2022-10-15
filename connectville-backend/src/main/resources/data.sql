@@ -1,2 +1,2 @@
 INSERT INTO users (last_name, first_name, username, password, email, role) VALUES ('Ionescu', 'Mihai', 'ion.mihai', '$2a$10$iM7th1y6TJhFEtckFN0PZ.rFP4.xNIEcnTQTFiwVjmn9Aus21PE/i', 'ion.mihai@gmail.com',1);
-INSERT INTO users (last_name, first_name, username, password, email, role) VALUES ('Popescu', 'Ion', 'ion.pop', '123456', 'ion.pop@gmail.com', 0);
+INSERT INTO users (last_name, first_name, username, password, email, role) VALUES ('Popescu', 'Ion', 'ion.pop', '$2a$10$SqJ/Oi8eLvebA2lI6Rp5RuOdtJSh64W5krWaiVF/TPX3O708R9RbK', 'ion.pop@gmail.com', 0);
