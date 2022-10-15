@@ -44,6 +44,7 @@ public class TestController {
         testNews.setLikes(userLikes);
         testNews.setComments(userComments);
         testNews.setTopics(topics);
+        testNews.setCop("Tech");
         newsRepository.save(testNews);
         return "OK";
     }

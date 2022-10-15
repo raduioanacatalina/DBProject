@@ -1,21 +1,21 @@
 package com.db.connectville.controller;
 
 import com.db.connectville.dtos.CreateAndEditNewsDTO;
+import com.db.connectville.dtos.ResponseCommentDTO;
 import com.db.connectville.dtos.ResponseNewsDTO;
 import com.db.connectville.exception.NewsNotFoundException;
 import com.db.connectville.model.*;
 import com.db.connectville.repository.NewsRepository;
 import com.db.connectville.repository.UserRepository;
 import com.db.connectville.service.JWTUtils;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,18 +33,16 @@ public class NewsController {
                 .filter(News::isPinned)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
 
         List<ResponseNewsDTO> unpinnedNews = newsRepository.findAll().stream()
                 .filter(news -> !news.isPinned())
-                .sorted(new Comparator<News>() {
-                    public int compare(News n1, News n2) {
-                        return n2.getPublishDate().compareTo(n1.getPublishDate());
-                    }
-                })
+                .sorted((n1, n2) -> n2.getPublishDate().compareTo(n1.getPublishDate()))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
 
         rezNews.addAll(unpinnedNews);
 
@@ -61,7 +59,8 @@ public class NewsController {
                 .filter(news -> news.getId() == id)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
         }
@@ -70,12 +69,13 @@ public class NewsController {
     }
 
     @GetMapping("/filter")
-    public List<ResponseNewsDTO> getAllNewsByTopic(@RequestParam(name = "topic") List<String> topic) {
+    public List<ResponseNewsDTO> getAllNewsByTopic(@RequestParam(name = "topics") List<String> topics) {
         List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
-                .filter(news -> news.getTopics().containsAll(topic))
+                .filter(news -> news.getTopics().containsAll(topics))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
 
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
@@ -90,7 +90,8 @@ public class NewsController {
                 .filter(news -> news.getId() == id)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics())).collect(Collectors.toList());
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
         }
@@ -113,7 +114,7 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @PutMapping("/{id}/unpin")
@@ -129,11 +130,25 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @PostMapping("/new")
-    public ResponseNewsDTO createNews(@RequestBody CreateAndEditNewsDTO newNews) {
+    public ResponseNewsDTO createNews(@RequestBody CreateAndEditNewsDTO newNews, HttpServletRequest http) {
+        http.getHeader("Authorization");
+//        String[] split_string = jwt.split("\\.");
+//
+//        String base64EncodedHeader = split_string[0];
+//        String base64EncodedBody = split_string[1];
+//        String base64EncodedSignature = split_string[2];
+//
+//        String header = new String(Base64.getDecoder().decode(base64EncodedHeader));
+//        String body = new String(Base64.getDecoder().decode(base64EncodedBody));
+//
+//        JSONObject jsonObject = new JSONObject(body);
+//        String username = (String) jsonObject.get("username");
+//        User user = userRepository.findByUsername(username);
+
 
         if (newNews == null) {
             throw new NewsNotFoundException();
@@ -144,16 +159,16 @@ public class NewsController {
         createdNews.setImage(newNews.getImage());
         createdNews.setPublishDate(new Date());
         createdNews.setTopics(newNews.getTopics());
-        User user = new User();
-        user.setId(2);
-        createdNews.setPublisher(user);
+        createdNews.setCop("HR");
+//        createdNews.setPublisher(user);
 
         //TO DO: get logged in user and complete the createdNews fields
 
         newsRepository.save(createdNews);
 
-        return new ResponseNewsDTO(createdNews.getId(), "Mocked Name", createdNews.getPublishDate(), createdNews.getText(), createdNews.getImage(),
-                createdNews.isPinned(), createdNews.getLikes(), createdNews.getComments(), createdNews.getTopics());
+        return new ResponseNewsDTO(createdNews.getId(), "Mocked Name", createdNews.getPublishDate(),
+                createdNews.getText(), createdNews.getImage(), createdNews.isPinned(), createdNews.getLikes(),
+                createdNews.getComments(), createdNews.getTopics(), createdNews.getCop());
     }
 
     @PutMapping("/{id}")
@@ -181,29 +196,34 @@ public class NewsController {
         newsRepository.save(rezNews);
 
         return new ResponseNewsDTO(rezNews.getId(), "Mocked Name", rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @GetMapping("/{id}/comments")
-    public Set<UserComment> getNewsCommentsById(@PathVariable(name = "id") int id) {
+    public List<ResponseCommentDTO> getNewsCommentsById(@PathVariable(name = "id") int id) {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
             throw new NewsNotFoundException();
         }
 
-        return rezNews.getComments();
+        return rezNews.getComments().stream()
+                .map(comment -> new ResponseCommentDTO(userRepository.getUserById(comment.getUserId()).getLastName() + " " +
+                        userRepository.getUserById(comment.getUserId()).getFirstName(), comment.getText())).collect(Collectors.toList());
+
     }
 
     @GetMapping("/{id}/likes")
-    public Set<UserLike> getNewsLikesById(@PathVariable(name = "id") int id) {
+    public List<String> getNewsLikesById(@PathVariable(name = "id") int id) {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
             throw new NewsNotFoundException();
         }
 
-        return rezNews.getLikes();
+        return rezNews.getLikes().stream()
+                .map(like -> userRepository.getUserById(like.getUserId()).getLastName() + " " +
+                        userRepository.getUserById(like.getUserId()).getFirstName()).collect(Collectors.toList());
     }
 
     @PutMapping("/{id}/like")
@@ -223,7 +243,7 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @PutMapping("/{id}/comment")
@@ -245,7 +265,55 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
+    }
+
+    @GetMapping("/search")
+    public List<ResponseNewsDTO> getAllNewsByKeywords(@RequestParam(name = "keywords") List<String> keywords) {
+        List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
+                .filter(news -> keywords.stream().allMatch(news.getText()::contains))
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
+                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
+
+        if (rezNews.isEmpty()) {
+            throw new NewsNotFoundException();
+        }
+
+        return rezNews;
+    }
+
+    @GetMapping("/CoP/{cop}")
+    public List<ResponseNewsDTO> getAllNewsByCop(@PathVariable(name = "cop") String cop) {
+        List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
+                .filter(news -> news.getCop().equals(cop))
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
+                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
+
+        if (rezNews.isEmpty()) {
+            throw new NewsNotFoundException();
+        }
+
+        return rezNews;
+    }
+
+    @GetMapping("/{cop}/filter")
+    public List<ResponseNewsDTO> getAllNewsByCopAndTopics(@PathVariable(name = "cop") String cop, @RequestParam(name = "topics") List<String> topics) {
+        List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
+                .filter(news -> news.getCop().equals(cop) && news.getTopics().containsAll(topics))
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
+                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
+
+        if (rezNews.isEmpty()) {
+            throw new NewsNotFoundException();
+        }
+
+        return rezNews;
     }
 
 }

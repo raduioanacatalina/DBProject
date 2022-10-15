@@ -25,4 +25,5 @@ public class ResponseNewsDTO {
     private Set<UserLike> likes;
     private Set<UserComment> comments;
     private Set<String> topics;
+    private String cop;
 }

@@ -45,4 +45,6 @@ public class News {
     @JsonManagedReference
     @OneToMany(targetEntity = UserComment.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserComment> comments;
+    @Column
+    private String cop;
 }
