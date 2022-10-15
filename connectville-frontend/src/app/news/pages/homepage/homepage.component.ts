@@ -21,7 +21,6 @@ export interface DialogData {
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
-  typesOfShoes: string[] = ['HR', 'Legal', 'Tech'];
   newsList: News[] = [];
 
   constructor(

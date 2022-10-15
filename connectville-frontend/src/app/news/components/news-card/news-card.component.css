@@ -12,11 +12,11 @@
 }
 
 .mat-fab {
-  /* border-radius: 25%; */
   margin-right: 10px;
 }
 
-/* #like-button:hover {
-  background-color: #24a0ed;
-  color: white;
-} */
+i {
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+}

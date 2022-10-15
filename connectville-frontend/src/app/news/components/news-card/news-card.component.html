@@ -44,9 +44,9 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button id="like-button" mat-button (click)="increaseLike()">LIKE</button>
-    <span>{{ news.likes }}</span>
-    <button mat-button (click)="openDialog()">COMMENT</button>
-    <button mat-button (click)="openDialogSeeComments()">SEE COMMENTS</button>
+    <!-- <span id="number-likes">{{ news.likes }}</span> -->
+    <i class="material-icons" (click)="increaseLike()">thumb_up_off_alt</i>
+    <i class="material-icons" (click)="openDialog()">add_comment</i>
+    <i class="material-icons" (click)="openDialogSeeComments()">comment</i>
   </mat-card-actions>
 </mat-card>

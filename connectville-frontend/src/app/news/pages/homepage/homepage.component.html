@@ -5,12 +5,6 @@
   fxLayoutGap="10px"
   fxLayoutGap.xs="0"
 >
-  <!-- <mat-selection-list #shoes [multiple]="false">
-    <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-      {{ shoe }}
-    </mat-list-option>
-  </mat-selection-list> -->
-
   <div class="cards-container">
     <app-news-card *ngFor="let news of newsList" [news]="news"></app-news-card>
   </div>
