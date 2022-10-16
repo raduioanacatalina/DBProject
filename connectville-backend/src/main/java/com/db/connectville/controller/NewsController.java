@@ -4,18 +4,20 @@ import com.db.connectville.dtos.CreateAndEditNewsDTO;
 import com.db.connectville.dtos.ResponseCommentDTO;
 import com.db.connectville.dtos.ResponseNewsDTO;
 import com.db.connectville.exception.NewsNotFoundException;
-import com.db.connectville.model.*;
+import com.db.connectville.model.News;
+import com.db.connectville.model.User;
+import com.db.connectville.model.UserComment;
+import com.db.connectville.model.UserLike;
 import com.db.connectville.repository.NewsRepository;
 import com.db.connectville.repository.UserRepository;
-import com.db.connectville.service.JWTUtils;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.util.*;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +27,6 @@ public class NewsController {
 
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
-    private final JWTUtils jwtUtils;
 
     private User getLoggedInUser(String jwt) {
         String[] split_string = jwt.split("\\.");
@@ -34,6 +35,15 @@ public class NewsController {
         JSONObject jsonObject = new JSONObject(body);
         String username = (String) jsonObject.get("username");
         return userRepository.findByUsername(username);
+    }
+
+    private List<ResponseNewsDTO> getNewsDTOsById(int id) {
+        return newsRepository.findAll().stream()
+                .filter(news -> news.getId() == id)
+                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
+                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("")
@@ -62,14 +72,10 @@ public class NewsController {
         return rezNews;
     }
 
+
     @GetMapping("/{id}")
     public ResponseNewsDTO getNewsById(@PathVariable(name = "id") int id) {
-        List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
-                .filter(news -> news.getId() == id)
-                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
-                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
-                .collect(Collectors.toList());
+        List<ResponseNewsDTO> rezNews = getNewsDTOsById(id);
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
         }
@@ -94,20 +100,13 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteNewsById(@PathVariable(name = "id") int id) {
-        List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
-                .filter(news -> news.getId() == id)
-                .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
-                        news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
-                .collect(Collectors.toList());
+    public void deleteNewsById(@PathVariable(name = "id") int id) {
+        List<ResponseNewsDTO> rezNews = getNewsDTOsById(id);
         if (rezNews.isEmpty()) {
             throw new NewsNotFoundException();
         }
 
         newsRepository.deleteById(id);
-//        return rezNews.get(0);
-        return "News with id " + id + " was deleted successfully!";
     }
 
     @PutMapping("/{id}/pin")
@@ -173,11 +172,9 @@ public class NewsController {
         if (rezNews == null) {
             throw new NewsNotFoundException();
         }
-
         if (!newNews.getText().equals("")) {
             rezNews.setText(newNews.getText());
         }
-
         if (!newNews.getImage().equals("")) {
             rezNews.setImage(newNews.getImage());
         }
@@ -186,12 +183,13 @@ public class NewsController {
         }
         rezNews.setPublishDate(new Date());
 
-        //TO DO: get logged in user and complete the rezNews fields
-
         newsRepository.save(rezNews);
 
-        return new ResponseNewsDTO(rezNews.getId(), "Mocked Name", rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
+        User user = userRepository.getUserById(rezNews.getPublisher().getId());
+
+        return new ResponseNewsDTO(rezNews.getId(), user.getLastName() + " " + user.getFirstName(),
+                rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(), rezNews.isPinned(), rezNews.getLikes(),
+                rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @GetMapping("/{id}/comments")
@@ -250,8 +248,8 @@ public class NewsController {
             throw new NewsNotFoundException();
         }
 
-        UserComment userComment = new UserComment();
         User user = getLoggedInUser(http.getHeader("Authorization"));
+        UserComment userComment = new UserComment();
         userComment.setUserId(user.getId());
         userComment.setNews(rezNews);
         userComment.setText(comment);
