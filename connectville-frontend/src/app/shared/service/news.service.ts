@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of, Subject, tap } from 'rxjs';
 import { News } from 'src/app/news/model/news.model';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +8,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class NewsService {
+  subjectDelete = new Subject<any>();
+
   constructor(private http: HttpClient) {}
+
+  emitDelete<T>(data: T) {
+    this.subjectDelete.next(data);
+  }
+
+  onDelete<T>(): Observable<T> {
+    return this.subjectDelete.asObservable();
+  }
 
   createNews(text: string, topics: string[]): Observable<News> {
     // return this.http
@@ -56,8 +66,9 @@ export class NewsService {
   }
 
   public deleteNews(id:number) {
-    this.http.delete(environment.apiUrl + 'news/'+id).subscribe((data) => {
-      console.log(data);
-    });
+  //   this.http.delete(environment.apiUrl + 'news/'+id).subscribe((data) => {
+  //     console.log(data);
+  //   });
+  this.emitDelete(id);
   }
 }

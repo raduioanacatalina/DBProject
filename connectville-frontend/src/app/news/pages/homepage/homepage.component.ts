@@ -10,6 +10,7 @@ import {
 } from '@angular/material/dialog';
 import { CreateNewsComponent } from 'src/app/admin/pages/create-news/create-news.component';
 import { DialogOverviewComponent } from '../../components/dialog-overview/dialog-overview.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   comment: string;
@@ -26,7 +27,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private newsService: NewsService
+    private newsService: NewsService,
+    private _snackBar: MatSnackBar
   ) {}
 
   createNewsClicked() {
@@ -36,6 +38,11 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe((news: News[]) => {
       this.newsList = [...news];
+    });
+    this.newsService.onDelete().subscribe(response => {
+      let index = this.newsList.findIndex(e => e.id === response);
+      this.newsList.splice(index, 1);
+      this._snackBar.open('Succesfully deleted', 'Ok');
     });
   }
 }
