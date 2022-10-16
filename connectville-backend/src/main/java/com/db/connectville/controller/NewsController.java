@@ -27,6 +27,15 @@ public class NewsController {
     private final UserRepository userRepository;
     private final JWTUtils jwtUtils;
 
+    private User getLoggedInUser(String jwt) {
+        String[] split_string = jwt.split("\\.");
+        String base64EncodedBody = split_string[1];
+        String body = new String(Base64.getDecoder().decode(base64EncodedBody));
+        JSONObject jsonObject = new JSONObject(body);
+        String username = (String) jsonObject.get("username");
+        return userRepository.findByUsername(username);
+    }
+
     @GetMapping("")
     public List<ResponseNewsDTO> getAllNews() {
         List<ResponseNewsDTO> rezNews = newsRepository.findAll().stream()
@@ -135,20 +144,6 @@ public class NewsController {
 
     @PostMapping("/new")
     public ResponseNewsDTO createNews(@RequestBody CreateAndEditNewsDTO newNews, HttpServletRequest http) {
-        http.getHeader("Authorization");
-//        String[] split_string = jwt.split("\\.");
-//
-//        String base64EncodedHeader = split_string[0];
-//        String base64EncodedBody = split_string[1];
-//        String base64EncodedSignature = split_string[2];
-//
-//        String header = new String(Base64.getDecoder().decode(base64EncodedHeader));
-//        String body = new String(Base64.getDecoder().decode(base64EncodedBody));
-//
-//        JSONObject jsonObject = new JSONObject(body);
-//        String username = (String) jsonObject.get("username");
-//        User user = userRepository.findByUsername(username);
-
 
         if (newNews == null) {
             throw new NewsNotFoundException();
@@ -160,13 +155,13 @@ public class NewsController {
         createdNews.setPublishDate(new Date());
         createdNews.setTopics(newNews.getTopics());
         createdNews.setCop("HR");
-//        createdNews.setPublisher(user);
-
-        //TO DO: get logged in user and complete the createdNews fields
+        User user = getLoggedInUser(http.getHeader("Authorization"));
+        createdNews.setPublisher(user);
 
         newsRepository.save(createdNews);
 
-        return new ResponseNewsDTO(createdNews.getId(), "Mocked Name", createdNews.getPublishDate(),
+        return new ResponseNewsDTO(createdNews.getId(), createdNews.getPublisher().getLastName() + " " +
+                createdNews.getPublisher().getFirstName(), createdNews.getPublishDate(),
                 createdNews.getText(), createdNews.getImage(), createdNews.isPinned(), createdNews.getLikes(),
                 createdNews.getComments(), createdNews.getTopics(), createdNews.getCop());
     }
@@ -227,7 +222,7 @@ public class NewsController {
     }
 
     @PutMapping("/{id}/like")
-    public ResponseNewsDTO likeNewsById(@PathVariable(name = "id") int id) {
+    public ResponseNewsDTO likeNewsById(@PathVariable(name = "id") int id, HttpServletRequest http) {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
@@ -235,7 +230,8 @@ public class NewsController {
         }
 
         UserLike userLike = new UserLike();
-        userLike.setUserId(2);
+        User user = getLoggedInUser(http.getHeader("Authorization"));
+        userLike.setUserId(user.getId());
         userLike.setNews(rezNews);
         rezNews.getLikes().add(userLike);
 
@@ -247,7 +243,7 @@ public class NewsController {
     }
 
     @PutMapping("/{id}/comment")
-    public ResponseNewsDTO commentOnNewsById(@PathVariable(name = "id") int id, @RequestBody String comment) {
+    public ResponseNewsDTO commentOnNewsById(@PathVariable(name = "id") int id, @RequestBody String comment, HttpServletRequest http) {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
@@ -255,7 +251,8 @@ public class NewsController {
         }
 
         UserComment userComment = new UserComment();
-        userComment.setUserId(2);
+        User user = getLoggedInUser(http.getHeader("Authorization"));
+        userComment.setUserId(user.getId());
         userComment.setNews(rezNews);
         userComment.setText(comment);
 
