@@ -22,7 +22,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     if (!url.endsWith('login')) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.authService.getToken()}`,
+          Authorization: `${this.authService.getToken()}`,
         },
       });
     }

@@ -1,8 +1,6 @@
-<p *ngFor="let comment of commentList">
-  {{ comment.text }}
-</p>
-
-<mat-card>
+<mat-card *ngFor="let comment of commentList">
   <mat-card-subtitle>Dita Alexandru</mat-card-subtitle>
-  <mat-card-content><p>super tare chiar mi-a placut</p></mat-card-content>
+  <mat-card-content
+    ><p>{{ comment }}</p></mat-card-content
+  >
 </mat-card>

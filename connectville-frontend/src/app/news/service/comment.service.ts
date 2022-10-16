@@ -10,20 +10,18 @@ import { Comment } from '../model/comment.model';
 export class CommentService {
   constructor(private http: HttpClient) {}
 
-  getAllCommentsByNewsId(id: number): Observable<Comment[]> {
-    // return this.http.get<Comment[]>(
-    //   environment.apiUrl + '/news/' + id + '/comments'
-    // );
-    return of([
-      { id: 2, text: 'dada' },
-
-      { id: 3, text: 'asdasdas' },
-    ]);
+  getAllCommentsByNewsId(newsId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(
+      environment.apiUrl + '/news/' + newsId + '/comments'
+    );
   }
 
-  createComment(text: string): Observable<Comment> {
-    return this.http.post<Comment>(environment.apiUrl + '/news/comment', {
-      text,
-    });
+  createComment(text: string, newsId: number): Observable<Comment> {
+    return this.http.put<Comment>(
+      environment.apiUrl + '/news/' + newsId + '/comment',
+      {
+        text,
+      }
+    );
   }
 }

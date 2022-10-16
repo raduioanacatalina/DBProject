@@ -1,6 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
@@ -29,7 +30,8 @@ export class CreateNewsComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       text: [null, [Validators.required, Validators.maxLength(288)]],
@@ -47,9 +49,19 @@ export class CreateNewsComponent implements OnInit {
   ngOnInit(): void {}
 
   submitDetails(form: any) {
-    this.newsService.createNews(this.form.controls['text'].value, [
-      this.form.controls['topics'].value,
-    ]);
+    console.log('submit details');
+    this.newsService
+      .createNews(this.form.controls['text'].value, [
+        this.form.controls['topics'].value,
+      ])
+      .subscribe({
+        next: () => {
+          this._snackBar.open('News created with success!', 'Ok');
+        },
+        error: () => {
+          this._snackBar.open('News creation failed!', 'Ok');
+        },
+      });
   }
 
   selectFiles(event: any): void {

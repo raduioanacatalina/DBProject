@@ -13,6 +13,7 @@ import { DialogOverviewComponent } from '../../components/dialog-overview/dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
+  newsId: number;
   comment: string;
 }
 
@@ -25,7 +26,6 @@ export class HomepageComponent implements OnInit {
   newsList: News[] = [];
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     private newsService: NewsService,
     private _snackBar: MatSnackBar
@@ -39,8 +39,8 @@ export class HomepageComponent implements OnInit {
     this.newsService.getAllNews().subscribe((news: News[]) => {
       this.newsList = [...news];
     });
-    this.newsService.onDelete().subscribe(response => {
-      let index = this.newsList.findIndex(e => e.id === response);
+    this.newsService.onDelete().subscribe((response) => {
+      let index = this.newsList.findIndex((e) => e.id === response);
       this.newsList.splice(index, 1);
       this._snackBar.open('Succesfully deleted', 'Ok');
     });

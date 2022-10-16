@@ -20,7 +20,7 @@ export class NewsCardComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
       width: '250px',
-      data: { comment: this.comment },
+      data: { comment: this.comment, newsId: this.news.id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
