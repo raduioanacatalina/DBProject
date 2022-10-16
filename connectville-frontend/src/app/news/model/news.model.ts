@@ -1,3 +1,6 @@
+import { identifierName } from '@angular/compiler';
+import { User } from 'src/app/auth/model/user.model';
+
 export interface News {
   id: number;
 
@@ -11,9 +14,20 @@ export interface News {
 
   isPinned: boolean;
 
-  likes: number;
+  likes: Set<UserLike>;
 
-  comments: number;
+  comments: Set<UserComment>;
 
   topics: string[];
+}
+
+export interface UserComment {
+  id: number;
+  userId: number;
+  text: String;
+}
+
+export interface UserLike {
+  id: number;
+  userId: number;
 }

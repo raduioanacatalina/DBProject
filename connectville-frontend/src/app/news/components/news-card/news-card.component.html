@@ -5,29 +5,23 @@
       >{{ news.publisher }}
       <mat-icon *ngIf="news.isPinned">push_pin</mat-icon></mat-card-title
     >
-    <!-- <button
-      mat-button
-      color="warn"
-      *appPermission="'admin'"
-      onclick="deleteNews()"
-    >
-      DELETE
-    </button> -->
+
     <button
       mat-fab
       color="primary"
       aria-label="Example icon button with a delete icon"
       (click)="deleteNews()"
+      *appPermission="'admin'"
     >
       <mat-icon>delete</mat-icon>
     </button>
 
-    <!-- <button mat-button *appPermission="'admin'" onclick="pinPost()">PIN</button> -->
     <button
       mat-fab
       color="warn"
       aria-label="Example icon button with a bookmark icon"
       (click)="pinPost()"
+      *appPermission="'admin'"
     >
       <mat-icon>bookmark</mat-icon>
     </button>
@@ -44,8 +38,8 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <!-- <span id="number-likes">{{ news.likes }}</span> -->
-    <i class="material-icons" (click)="increaseLike()">thumb_up_off_alt</i>
+    <!-- <span id="number-likes">{{ news.likes.size }}</span> -->
+    <i class="material-icons">thumb_up_off_alt</i>
     <i class="material-icons" (click)="openDialog()">add_comment</i>
     <i class="material-icons" (click)="openDialogSeeComments()">comment</i>
   </mat-card-actions>
