@@ -30,7 +30,9 @@ export class NewsCardComponent implements OnInit {
   }
 
   openDialogSeeComments() {
-    this.dialog.open(CommentsPopUpComponent);
+    this.dialog.open(CommentsPopUpComponent, {
+    data: { comment: this.comment, newsId: this.news.id }
+    });
   }
 
   deleteNews() {

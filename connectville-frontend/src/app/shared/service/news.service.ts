@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 export class NewsService {
   subjectDelete = new Subject<any>();
   newsList: News[] | undefined;
+  private _snackBar: any;
+  router: any;
 
   constructor(private http: HttpClient) {}
 
@@ -40,13 +42,13 @@ export class NewsService {
   }
 
   getAllNews(): Observable<News[]> {
-    console.log(
-      this.http
-        .get<News[]>(environment.apiUrl + '/news')
-        .subscribe((news: News[]) => {
-          console.log(news);
-        })
-    );
+    // console.log(
+    //   this.http
+    //     .get<News[]>(environment.apiUrl + '/news')
+    //     .subscribe((news: News[]) => {
+    //       console.log(news);
+    //     })
+    // );
     return this.http.get<News[]>(environment.apiUrl + '/news');
 
     // return of([
@@ -75,10 +77,12 @@ export class NewsService {
     // ]);
   }
 
-  public deleteNews(id: number) {
-    //   this.http.delete(environment.apiUrl + 'news/'+id).subscribe((data) => {
-    //     console.log(data);
-    //   });
-    this.emitDelete(id);
+  public deleteNews(newsId: number) {
+      this.http.delete(environment.apiUrl + '/news/' + newsId).subscribe({
+        next: () => {
+          window.location.reload();
+        },
+      });
+    // this.emitDelete(id);
   }
 }

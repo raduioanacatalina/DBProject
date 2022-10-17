@@ -18,10 +18,7 @@ export class CommentService {
 
   createComment(text: string, newsId: number): Observable<Comment> {
     return this.http.put<Comment>(
-      environment.apiUrl + '/news/' + newsId + '/comment',
-      {
-        text,
-      }
+      environment.apiUrl + '/news/' + newsId + '/comment', text
     );
   }
 }
