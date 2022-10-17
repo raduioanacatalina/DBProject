@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -70,6 +71,7 @@ import { PermissionDirective } from './news/directives/permission.directive';
     MatDialogModule,
     MatBottomSheetModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
 
   providers: [

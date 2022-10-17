@@ -1,6 +1,3 @@
-import { identifierName } from '@angular/compiler';
-import { User } from 'src/app/auth/model/user.model';
-
 export interface News {
   id: number;
 

@@ -3,7 +3,7 @@
 }
 
 .cards-container {
-  margin-top: 80px;
+  /* margin-top: 80px; */
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -14,4 +14,8 @@
 .item {
   /* font-size: 2em; */
   padding: 1em;
+}
+
+.container {
+  margin-top: 100px;
 }

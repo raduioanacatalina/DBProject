@@ -1,5 +1,5 @@
 .example-card {
-  max-width: 550px;
+  max-width: 700px;
 }
 
 .example-header-image {
@@ -19,4 +19,8 @@ i {
   cursor: pointer;
   margin-right: 10px;
   margin-left: 10px;
+}
+
+p {
+  font-size: 18px;
 }

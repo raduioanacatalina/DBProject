@@ -6,6 +6,10 @@
   fxLayoutGap.xs="0"
 >
   <div class="cards-container">
-    <app-news-card *ngFor="let news of newsList" [news]="news"></app-news-card>
+    <app-news-card
+      (deleted)="onNewsDelete(news.id)"
+      *ngFor="let news of newsList"
+      [news]="news"
+    ></app-news-card>
   </div>
 </div>

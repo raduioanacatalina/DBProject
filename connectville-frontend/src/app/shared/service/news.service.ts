@@ -8,20 +8,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class NewsService {
-  subjectDelete = new Subject<any>();
   newsList: News[] | undefined;
   private _snackBar: any;
   router: any;
 
   constructor(private http: HttpClient) {}
-
-  emitDelete<T>(data: T) {
-    this.subjectDelete.next(data);
-  }
-
-  onDelete<T>(): Observable<T> {
-    return this.subjectDelete.asObservable();
-  }
 
   createNews(text: string, topics: string[]): Observable<News> {
     return this.http.post<News>(environment.apiUrl + '/news/new', {
@@ -77,12 +68,8 @@ export class NewsService {
     // ]);
   }
 
-  public deleteNews(newsId: number) {
-      this.http.delete(environment.apiUrl + '/news/' + newsId).subscribe({
-        next: () => {
-          window.location.reload();
-        },
-      });
+  deleteNews(newsId: number): Observable<any> {
+    return this.http.delete(environment.apiUrl + '/news/' + newsId);
     // this.emitDelete(id);
   }
 }

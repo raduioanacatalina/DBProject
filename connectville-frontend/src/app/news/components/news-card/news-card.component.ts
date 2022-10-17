@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewsService } from 'src/app/shared/service/news.service';
 import { News } from '../../model/news.model';
 import { CommentsPopUpComponent } from '../comments-pop-up/comments-pop-up.component';
@@ -14,8 +15,14 @@ export class NewsCardComponent implements OnInit {
   comment!: string;
   @Input()
   news!: News;
+  @Output()
+  deleted: EventEmitter<void> = new EventEmitter();
 
-  constructor(public dialog: MatDialog, private newsService: NewsService) {}
+  constructor(
+    public dialog: MatDialog,
+    private newsService: NewsService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
@@ -31,12 +38,19 @@ export class NewsCardComponent implements OnInit {
 
   openDialogSeeComments() {
     this.dialog.open(CommentsPopUpComponent, {
-    data: { comment: this.comment, newsId: this.news.id }
+      data: { comment: this.comment, newsId: this.news.id },
     });
   }
 
   deleteNews() {
-    this.newsService.deleteNews(this.news.id);
+    this.newsService.deleteNews(this.news.id).subscribe({
+      next: () => {
+        this.deleted.emit();
+      },
+      error: () => {
+        this._snackBar.open('Delete failed!', 'Ok');
+      },
+    });
   }
 
   // increaseLike() {

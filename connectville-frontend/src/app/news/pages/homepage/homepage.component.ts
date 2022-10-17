@@ -35,14 +35,15 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['createNews']);
   }
 
+  onNewsDelete(newsId: number) {
+    this.newsList = this.newsList.filter((news) => {
+      return news.id !== newsId;
+    });
+  }
+
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe((news: News[]) => {
       this.newsList = [...news];
-    });
-    this.newsService.onDelete().subscribe((response) => {
-      let index = this.newsList.findIndex((e) => e.id === response);
-      this.newsList.splice(index, 1);
-      this._snackBar.open('Succesfully deleted', 'Ok');
     });
   }
 }
