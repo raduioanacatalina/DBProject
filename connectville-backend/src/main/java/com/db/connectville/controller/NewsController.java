@@ -117,23 +117,7 @@ public class NewsController {
             throw new NewsNotFoundException();
         }
 
-        rezNews.setPinned(true);
-        newsRepository.save(rezNews);
-
-        return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
-                rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
-    }
-
-    @PutMapping("/{id}/unpin")
-    public ResponseNewsDTO unpinNewsById(@PathVariable(name = "id") int id) {
-        News rezNews = newsRepository.getNewsById(id);
-
-        if (rezNews == null) {
-            throw new NewsNotFoundException();
-        }
-
-        rezNews.setPinned(false);
+        rezNews.setPinned(!rezNews.isPinned());
         newsRepository.save(rezNews);
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
