@@ -1,11 +1,44 @@
-<div class="header-wrapper">
-  <mat-toolbar class="sticky-toolbar" color="primary">
+<div class="container">
+  <mat-toolbar class="header" color="primary">
     <span fxLayoutAlign="center">Conectville</span>
     <div class="spacer"></div>
-    <button mat-raised-button>HR</button>
-    <button mat-raised-button>Legal</button>
-    <button mat-raised-button>Tech</button>
-    <button mat-raised-button color="warn" (click)="logoutClicked()">
+    <button
+      *ngIf="router.url !== '/login'"
+      mat-raised-button
+      class="create-post"
+      matTooltip="Create New Post"
+      (click)="createNewsClicked()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    <button
+      *ngIf="router.url !== '/login'"
+      mat-raised-button
+      matTooltip="Filter HR CoP"
+    >
+      HR
+    </button>
+    <button
+      *ngIf="router.url !== '/login'"
+      mat-raised-button
+      matTooltip="Filter Legal CoP"
+    >
+      Legal
+    </button>
+    <button
+      *ngIf="router.url !== '/login'"
+      mat-raised-button
+      matTooltip="Filter Tech CoP"
+    >
+      Tech
+    </button>
+    <button
+      *ngIf="router.url !== '/login'"
+      mat-raised-button
+      matTooltip="Leave Page"
+      class="create-post"
+      (click)="logoutClicked()"
+    >
       Logout
     </button>
   </mat-toolbar>

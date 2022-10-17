@@ -58,9 +58,15 @@ export class NewsCardComponent implements OnInit {
   // }
 
   pinPost(): void {
-    if (this.news.isPinned === false) this.news.isPinned = true;
-    else this.news.isPinned = false;
-    console.log(this.news);
+    this.newsService.putSelectPin(this.news.id).subscribe({
+      next: () => {
+        this.news.isPinned = true;
+        this._snackBar.open('You pinned this post!', 'Ok');
+      },
+      error: () => {
+        this._snackBar.open('Pin failed!', 'Ok');
+      },
+    });
   }
 
   ngOnInit(): void {}

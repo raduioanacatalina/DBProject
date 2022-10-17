@@ -5,18 +5,14 @@
   margin-right: 30px;
 }
 .myForm {
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
 }
 
-/* .myInput {
-  margin: 20px 20px 0 20px;
-} */
-.myButton {
+/* .myButton {
   margin-top: 20px;
   margin-left: 42.5%;
   width: 90px;
-}
+} */
 
 .progress-bar {
   padding: 0;
@@ -75,4 +71,8 @@
 
 .list-item {
   margin-bottom: 20px;
+}
+
+.main-div mat-card {
+  padding: 0px;
 }

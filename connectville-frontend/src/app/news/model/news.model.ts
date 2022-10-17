@@ -21,7 +21,7 @@ export interface News {
 export interface UserComment {
   id: number;
   userId: number;
-  text: String;
+  text: string;
 }
 
 export interface UserLike {

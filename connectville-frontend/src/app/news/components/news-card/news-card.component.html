@@ -3,13 +3,16 @@
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title
       >{{ news.publisher }}
-      <mat-icon *ngIf="news.isPinned">push_pin</mat-icon></mat-card-title
+      <mat-icon *ngIf="news.isPinned == true"
+        >push_pin</mat-icon
+      ></mat-card-title
     >
 
     <button
       mat-fab
       color="primary"
       aria-label="Example icon button with a delete icon"
+      matTooltip="Delete Post"
       (click)="deleteNews()"
       *appPermission="'admin'"
     >
@@ -18,14 +21,17 @@
 
     <button
       mat-fab
-      color="warn"
+      color="primary"
       aria-label="Example icon button with a bookmark icon"
+      matTooltip="Pin Post"
       (click)="pinPost()"
       *appPermission="'admin'"
     >
       <mat-icon>bookmark</mat-icon>
     </button>
-    <mat-card-subtitle>{{ news.publishDate }}</mat-card-subtitle>
+    <mat-card-subtitle>{{
+      news.publishDate.toLocaleString()
+    }}</mat-card-subtitle>
   </mat-card-header>
   <img
     mat-card-image
@@ -39,8 +45,15 @@
   </mat-card-content>
   <mat-card-actions>
     <!-- <span id="number-likes">{{ news.likes.size }}</span> -->
-    <i class="material-icons">thumb_up_off_alt</i>
-    <i class="material-icons" (click)="openDialog()">add_comment</i>
-    <i class="material-icons" (click)="openDialogSeeComments()">comment</i>
+    <i class="material-icons" matTooltip="Like Post">thumb_up_off_alt</i>
+    <i class="material-icons" (click)="openDialog()" matTooltip="Add Comment"
+      >add_comment</i
+    >
+    <i
+      class="material-icons"
+      (click)="openDialogSeeComments()"
+      matTooltip="See Comments"
+      >comment</i
+    >
   </mat-card-actions>
 </mat-card>

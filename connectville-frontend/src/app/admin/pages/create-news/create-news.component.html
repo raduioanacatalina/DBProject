@@ -5,7 +5,13 @@
         <span>Create News</span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <form [formGroup]="form" class="myForm" (ngSubmit)="submitDetails(form)">
+    <form
+      [formGroup]="form"
+      class="myForm"
+      (ngSubmit)="submitDetails(form)"
+      fxLayoutAlign="stretch"
+      fxLayout="column"
+    >
       <mat-form-field appearance="standard" class="myInput">
         <mat-label> Text </mat-label>
         <input

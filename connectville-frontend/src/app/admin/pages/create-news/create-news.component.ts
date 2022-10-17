@@ -57,6 +57,7 @@ export class CreateNewsComponent implements OnInit {
       .subscribe({
         next: () => {
           this._snackBar.open('News created with success!', 'Ok');
+          this.router.navigate(['homepage']);
         },
         error: () => {
           this._snackBar.open('News creation failed!', 'Ok');

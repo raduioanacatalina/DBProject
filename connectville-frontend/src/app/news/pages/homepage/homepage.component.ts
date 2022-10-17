@@ -31,10 +31,6 @@ export class HomepageComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
 
-  createNewsClicked() {
-    this.router.navigate(['createNews']);
-  }
-
   onNewsDelete(newsId: number) {
     this.newsList = this.newsList.filter((news) => {
       return news.id !== newsId;

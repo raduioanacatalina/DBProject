@@ -72,4 +72,11 @@ export class NewsService {
     return this.http.delete(environment.apiUrl + '/news/' + newsId);
     // this.emitDelete(id);
   }
+
+  putSelectPin(newsId: number): Observable<News> {
+    return this.http.put<News>(
+      environment.apiUrl + '/news/' + newsId + '/pin',
+      newsId
+    );
+  }
 }
