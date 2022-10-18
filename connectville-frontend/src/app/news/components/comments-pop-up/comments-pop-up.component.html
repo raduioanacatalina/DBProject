@@ -1,5 +1,10 @@
 <mat-card *ngFor="let comment of commentList">
+  <img
+    mat-card-avatar
+    src="../../../../assets/blank-profile-picture-g19ba23f36_640.png"
+  />
   <mat-card-subtitle>{{ comment.userName }}</mat-card-subtitle>
+
   <mat-card-content
     ><p>{{ comment.text }}</p></mat-card-content
   >

@@ -1,9 +1,11 @@
 <div class="container">
   <mat-toolbar class="header" color="primary">
-    <span fxLayoutAlign="center">Conectville</span>
+    <!-- <span fxLayoutAlign="center">Connectville</span> -->
+    <img src="../assets/uranus.png" alt="" />
+
     <div class="spacer"></div>
     <button
-      *ngIf="router.url !== '/login'"
+      *ngIf="router.url !== '/login' && router.url !== '/createNews'"
       mat-raised-button
       class="create-post"
       matTooltip="Create New Post"
@@ -12,23 +14,23 @@
       <mat-icon>add</mat-icon>
     </button>
     <button
-      *ngIf="router.url !== '/login'"
+      *ngIf="router.url !== '/login' && router.url !== '/createNews'"
       mat-raised-button
-      matTooltip="Filter HR CoP"
+      matTooltip="Filter HR Space"
     >
       HR
     </button>
     <button
-      *ngIf="router.url !== '/login'"
+      *ngIf="router.url !== '/login' && router.url !== '/createNews'"
       mat-raised-button
-      matTooltip="Filter Legal CoP"
+      matTooltip="Filter Legal Space"
     >
       Legal
     </button>
     <button
-      *ngIf="router.url !== '/login'"
+      *ngIf="router.url !== '/login' && router.url !== '/createNews'"
       mat-raised-button
-      matTooltip="Filter Tech CoP"
+      matTooltip="Filter Tech Space"
     >
       Tech
     </button>
@@ -43,4 +45,16 @@
     </button>
   </mat-toolbar>
 </div>
+
 <router-outlet></router-outlet>
+
+<footer class="footer-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span
+        >© 2022 Connectville. All rights reserved. No part of this site may be
+        reproduced without our written permission.</span
+      >
+    </mat-toolbar-row>
+  </mat-toolbar>
+</footer>

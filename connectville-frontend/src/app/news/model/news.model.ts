@@ -1,7 +1,7 @@
 export interface News {
   id: number;
 
-  image?: Int8Array;
+  image?: String;
 
   publisher: string;
 

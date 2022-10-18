@@ -24,3 +24,8 @@ i {
 p {
   font-size: 18px;
 }
+
+.flex-container {
+  display: flex;
+  flex-grow: 1;
+}

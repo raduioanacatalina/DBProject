@@ -2,7 +2,7 @@
   <mat-card fxFlex="35">
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <span>Create News</span>
+        <span>Create Post</span>
       </mat-toolbar-row>
     </mat-toolbar>
     <form
@@ -40,21 +40,12 @@
                 selectedFileNames.length ? selectedFileNames : 'Select Images'
               "
             />
-
-            <button
-              mat-flat-button
-              color="primary"
-              [disabled]="!selectedFiles"
-              (click)="uploadFiles()"
-            >
-              Upload
-            </button>
           </mat-toolbar>
 
           <input
             type="file"
             id="fileInput"
-            name="fileInput"
+            formControlName="image"
             accept="image/*"
             multiple
             (change)="selectFiles($event)"

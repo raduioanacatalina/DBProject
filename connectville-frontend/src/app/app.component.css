@@ -30,5 +30,18 @@
 }
 
 .create-post {
-  background-color: #b5a33f;
+  background-color: #b5683f;
+}
+
+.mat-toolbar-row {
+  text-align: center;
+}
+
+.footer-container {
+  margin-top: 100px;
+}
+
+span {
+  font-size: 15px;
+  text-align: right;
 }

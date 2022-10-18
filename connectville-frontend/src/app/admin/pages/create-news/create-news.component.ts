@@ -4,9 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
 import { NewsService } from 'src/app/shared/service/news.service';
-import { FileUploadService } from './service/file-upload.service';
 
 @Component({
   selector: 'app-create-news',
@@ -23,14 +21,15 @@ export class CreateNewsComponent implements OnInit {
   previews: string[] = [];
   imageInfos?: Observable<any>;
 
+  localUrl!: any[];
+
   form: FormGroup;
 
   constructor(
     private newsService: NewsService,
-    private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private uploadService: FileUploadService,
+
     private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
@@ -51,9 +50,11 @@ export class CreateNewsComponent implements OnInit {
   submitDetails(form: any) {
     console.log('submit details');
     this.newsService
-      .createNews(this.form.controls['text'].value, [
-        this.form.controls['topics'].value,
-      ])
+      .createNews(
+        this.form.controls['text'].value,
+        [this.form.controls['topics'].value],
+        this.selectedFileNames[0]
+      )
       .subscribe({
         next: () => {
           this._snackBar.open('News created with success!', 'Ok');
@@ -89,38 +90,38 @@ export class CreateNewsComponent implements OnInit {
     }
   }
 
-  upload(idx: number, file: File): void {
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
+  // upload(idx: number, file: File): void {
+  //   this.progressInfos[idx] = { value: 0, fileName: file.name };
 
-    if (file) {
-      this.uploadService.upload(file).subscribe(
-        (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progressInfos[idx].value = Math.round(
-              (100 * event.loaded) / event.total
-            );
-          } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
-            this.message.push(msg);
-            this.imageInfos = this.uploadService.getFiles();
-          }
-        },
-        (err: any) => {
-          this.progressInfos[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
-          this.message.push(msg);
-        }
-      );
-    }
-  }
+  //   if (file) {
+  //     this.uploadService.upload(file).subscribe(
+  //       (event: any) => {
+  //         if (event.type === HttpEventType.UploadProgress) {
+  //           this.progressInfos[idx].value = Math.round(
+  //             (100 * event.loaded) / event.total
+  //           );
+  //         } else if (event instanceof HttpResponse) {
+  //           const msg = 'Uploaded the file successfully: ' + file.name;
+  //           this.message.push(msg);
+  //           this.imageInfos = this.uploadService.getFiles();
+  //         }
+  //       },
+  //       (err: any) => {
+  //         this.progressInfos[idx].value = 0;
+  //         const msg = 'Could not upload the file: ' + file.name;
+  //         this.message.push(msg);
+  //       }
+  //     );
+  //   }
+  // }
 
-  uploadFiles(): void {
-    this.message = [];
+  // uploadFiles(): void {
+  //   this.message = [];
 
-    if (this.selectedFiles) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.upload(i, this.selectedFiles[i]);
-      }
-    }
-  }
+  //   if (this.selectedFiles) {
+  //     for (let i = 0; i < this.selectedFiles.length; i++) {
+  //       this.upload(i, this.selectedFiles[i]);
+  //     }
+  //   }
+  // }
 }
