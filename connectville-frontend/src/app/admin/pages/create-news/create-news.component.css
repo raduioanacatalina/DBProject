@@ -24,7 +24,8 @@
 
 .mat-input-element {
   font-size: medium;
-  font-weight: 200;
+  font-weight: 400;
+  color: rgb(216, 5, 227);
 }
 
 #fileInput {
@@ -75,4 +76,5 @@
 
 .main-div mat-card {
   padding: 0px;
+  margin-top: 130px;
 }

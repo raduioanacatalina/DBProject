@@ -52,7 +52,7 @@ export class CreateNewsComponent implements OnInit {
     this.newsService
       .createNews(
         this.form.controls['text'].value,
-        [this.form.controls['topics'].value],
+        this.form.controls['topics'].value.split(','),
         this.selectedFileNames[0]
       )
       .subscribe({

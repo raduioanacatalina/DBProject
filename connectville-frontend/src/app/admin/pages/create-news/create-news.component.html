@@ -13,7 +13,7 @@
       fxLayout="column"
     >
       <mat-form-field appearance="standard" class="myInput">
-        <mat-label> Text </mat-label>
+        <mat-label> What are you thinking of? (max. 280 char) </mat-label>
         <input
           matInput
           placeholder="Type description"
@@ -23,7 +23,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="standard" class="myInput">
-        <mat-label> Topics </mat-label>
+        <mat-label> Topics (ex: "#java, #backend, #db") </mat-label>
         <input
           matInput
           placeholder="Type topics"
@@ -37,7 +37,7 @@
             <input
               matInput
               [value]="
-                selectedFileNames.length ? selectedFileNames : 'Select Images'
+                selectedFileNames.length ? selectedFileNames : 'Upload an image'
               "
             />
           </mat-toolbar>

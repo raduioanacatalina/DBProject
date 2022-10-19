@@ -31,7 +31,7 @@
       <mat-icon>bookmark</mat-icon>
     </button>
     <mat-card-subtitle
-      >Posted at:
+      >Posted at
       {{
         news.publishDate.toLocaleString().split("T")[0] +
           " " +
@@ -67,8 +67,8 @@
 
       <div>
         <mat-chip-list aria-label="Fish selection">
-          <mat-chip>One fish</mat-chip>
-          <mat-chip>Two fish</mat-chip>
+          <tr *ngFor="let topic of news.topics">
+            <mat-chip>{{ topic }}</mat-chip>
         </mat-chip-list>
       </div>
     </div>
