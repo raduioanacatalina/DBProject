@@ -16,6 +16,8 @@ export interface News {
   comments: Set<UserComment>;
 
   topics: string[];
+
+  cop: string;
 }
 
 export interface UserComment {

@@ -1,16 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { News } from '../../model/news.model';
-import { AuthService } from 'src/app/auth/service/auth.service';
 import { NewsService } from 'src/app/shared/service/news.service';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import { CreateNewsComponent } from 'src/app/admin/pages/create-news/create-news.component';
-import { DialogOverviewComponent } from '../../components/dialog-overview/dialog-overview.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppComponent } from 'src/app/app.component';
 
 export interface DialogData {
   newsId: number;
@@ -34,6 +27,17 @@ export class HomepageComponent implements OnInit {
   onNewsDelete(newsId: number) {
     this.newsList = this.newsList.filter((news) => {
       return news.id !== newsId;
+    });
+  }
+
+  filterClicked(cop: string) {
+    this.newsService.getAllNewsByCop(cop).subscribe((news: News[]) => {
+      this.newsList = [...news];
+      console.log(this.newsList);
+      console.log(cop);
+      this.router.navigate(['homepage'], {
+        queryParams: { order: cop },
+      });
     });
   }
 

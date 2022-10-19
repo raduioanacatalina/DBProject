@@ -34,7 +34,6 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: rgb(216, 227, 235);
 }
 
 app-news-card .mat-card-header-text {
