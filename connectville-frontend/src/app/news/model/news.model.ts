@@ -9,7 +9,7 @@ export interface News {
 
   publishDate: Date;
 
-  isPinned: boolean;
+  pinned: boolean;
 
   likes: Set<UserLike>;
 

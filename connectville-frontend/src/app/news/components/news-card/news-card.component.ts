@@ -60,12 +60,12 @@ export class NewsCardComponent implements OnInit {
   pinPost(): void {
     this.newsService.putSelectPin(this.news.id).subscribe({
       next: () => {
-        if (this.news.isPinned == false) {
+        if (this.news.pinned == false) {
           this._snackBar.open('You pinned this post!', 'Ok');
-          this.news.isPinned = !this.news.isPinned;
+          this.news.pinned = !this.news.pinned;
         } else {
           this._snackBar.open('You unpinned this post!', 'Ok');
-          this.news.isPinned = !this.news.isPinned;
+          this.news.pinned = !this.news.pinned;
         }
       },
       error: () => {

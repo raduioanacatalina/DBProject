@@ -6,7 +6,7 @@
     />
     <mat-card-title
       >{{ news.publisher }}
-      <mat-icon *ngIf="news.isPinned">push_pin</mat-icon></mat-card-title
+      <mat-icon *ngIf="news.pinned">push_pin</mat-icon></mat-card-title
     >
 
     <button
@@ -49,7 +49,7 @@
   <mat-card-actions>
     <div class="flex-container">
       <!-- <span id="number-likes">{{ news.likes.size }}</span> -->
-      <div>
+      <div class="icons-container">
         <i class="material-icons" matTooltip="Like Post">thumb_up_off_alt</i>
         <i
           class="material-icons"
