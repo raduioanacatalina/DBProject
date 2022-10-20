@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -22,8 +23,9 @@ public class ResponseNewsDTO {
     private String text;
     private String image;
     private boolean pinned;
-    private Set<UserLike> likes;
+    private List<UserLike> likes;
     private Set<UserComment> comments;
     private Set<String> topics;
     private String cop;
+    private boolean likedByUser;
 }

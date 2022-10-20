@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="user_comment")
@@ -29,4 +30,6 @@ public class UserComment {
     @Column(nullable = false)
     private String text;
     //TO DO: creation date
+    @Column(nullable = false)
+    private Date date;
 }

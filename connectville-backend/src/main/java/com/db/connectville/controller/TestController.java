@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/test")
@@ -36,10 +34,10 @@ public class TestController {
         testNews.setText("my first post");
         testNews.setImage("https://i.picsum.photos/id/1002/4312/2868.jpg?hmac=5LlLE-NY9oMnmIQp7ms6IfdvSUQOzP_O3DPMWmyNxwo");
 
-        Set<UserLike> userLikes = new HashSet<>();
-        userLikes.add(new UserLike(1, 1, testNews));
+        List<UserLike> userLikes = new ArrayList<>();
+        userLikes.add(new UserLike(1, 1, testNews, false));
         Set<UserComment> userComments = new HashSet<>();
-        userComments.add(new UserComment(1, 1, testNews, "nice view"));
+        userComments.add(new UserComment(1, 1, testNews, "nice view", new Date()));
 
         testNews.setLikes(userLikes);
         testNews.setComments(userComments);

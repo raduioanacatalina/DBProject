@@ -15,4 +15,5 @@ public class CreateAndEditNewsDTO {
     private String text;
     private String image;
     private Set<String> topics;
+    private String cop;
 }

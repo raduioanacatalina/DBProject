@@ -24,4 +24,6 @@ public class UserLike {
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
+    @Column
+    private boolean isPressed;
 }
