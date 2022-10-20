@@ -15,7 +15,7 @@ export class AppComponent {
   news!: News;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private newsService: NewsService,
     public router: Router
   ) {}

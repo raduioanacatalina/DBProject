@@ -38,6 +38,8 @@ export class CreateNewsComponent implements OnInit {
       image: [null],
 
       topics: [null, [Validators.required]],
+
+      cop: [null, [Validators.required]],
     });
   }
 
@@ -53,6 +55,7 @@ export class CreateNewsComponent implements OnInit {
       .createNews(
         this.form.controls['text'].value,
         this.form.controls['topics'].value.split(','),
+        this.form.controls['cop'].value,
         this.selectedFileNames[0]
       )
       .subscribe({

@@ -49,6 +49,5 @@ public class News {
     @Column
     private String cop;
     @Column(name = "current_user_like")
-    @JoinColumn(referencedColumnName = "user_id")
     private boolean likedByCurrentUser;
 }

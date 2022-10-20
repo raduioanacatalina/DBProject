@@ -42,8 +42,7 @@ public class NewsController {
                 .filter(news -> news.getId() == id)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
     }
 
@@ -53,8 +52,7 @@ public class NewsController {
                 .filter(News::isPinned)
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         List<ResponseNewsDTO> unpinnedNews = newsRepository.findAll().stream()
@@ -62,8 +60,7 @@ public class NewsController {
                 .sorted((n1, n2) -> n2.getPublishDate().compareTo(n1.getPublishDate()))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         rezNews.addAll(unpinnedNews);
@@ -92,8 +89,7 @@ public class NewsController {
                 .filter(news -> news.getTopics().containsAll(topics))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         if (rezNews.isEmpty()) {
@@ -126,8 +122,7 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop(),
-                rezNews.isLikedByCurrentUser());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @PostMapping("/new")
@@ -152,7 +147,7 @@ public class NewsController {
         return new ResponseNewsDTO(createdNews.getId(), createdNews.getPublisher().getLastName() + " " +
                 createdNews.getPublisher().getFirstName(), createdNews.getPublishDate(),
                 createdNews.getText(), createdNews.getImage(), createdNews.isPinned(), createdNews.getLikes(),
-                createdNews.getComments(), createdNews.getTopics(), createdNews.getCop(), createdNews.isLikedByCurrentUser());
+                createdNews.getComments(), createdNews.getTopics(), createdNews.getCop());
     }
 
     @PutMapping("/{id}")
@@ -179,7 +174,7 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), user.getLastName() + " " + user.getFirstName(),
                 rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(), rezNews.isPinned(), rezNews.getLikes(),
-                rezNews.getComments(), rezNews.getTopics(), rezNews.getCop(), rezNews.isLikedByCurrentUser());
+                rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @GetMapping("/{id}/comments")
@@ -210,31 +205,27 @@ public class NewsController {
     }
 
     @PutMapping("/{id}/like")
-    public ResponseNewsDTO likeNewsById(@PathVariable(name = "id") int id, HttpServletRequest http) {
+    public ResponseNewsDTO likeNewsById(@PathVariable(name = "id") int id, HttpServletRequest http) throws Exception {
         News rezNews = newsRepository.getNewsById(id);
 
         if (rezNews == null) {
             throw new NewsNotFoundException();
         }
 
-        UserLike userLike = new UserLike();
         User user = getLoggedInUser(http.getHeader("Authorization"));
-        userLike.setUserId(user.getId());
-        userLike.setNews(rezNews);
-        if (!rezNews.isLikedByCurrentUser()) {
-            rezNews.getLikes().add(userLike);
+        if (rezNews.getLikes().stream().anyMatch(like -> like.getUserId() == user.getId())) {
+            rezNews.getLikes().remove(rezNews.getLikes().stream().filter(like -> like.getUserId() == user.getId()).findFirst().orElseThrow(Exception::new));
+        } else {
+            UserLike userLike = new UserLike();
+            userLike.setUserId(user.getId());
+            userLike.setNews(rezNews);
         }
-        else {
-            rezNews.getLikes().remove(rezNews.getLikes().get(rezNews.getLikes().size() - 1));
-        }
-        rezNews.setLikedByCurrentUser(!rezNews.isLikedByCurrentUser());
 
         newsRepository.save(rezNews);
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop(),
-                rezNews.isLikedByCurrentUser());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @PutMapping("/{id}/comment")
@@ -258,8 +249,7 @@ public class NewsController {
 
         return new ResponseNewsDTO(rezNews.getId(), rezNews.getPublisher().getLastName() + " " +
                 rezNews.getPublisher().getFirstName(), rezNews.getPublishDate(), rezNews.getText(), rezNews.getImage(),
-                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop(),
-                rezNews.isLikedByCurrentUser());
+                rezNews.isPinned(), rezNews.getLikes(), rezNews.getComments(), rezNews.getTopics(), rezNews.getCop());
     }
 
     @GetMapping("/search")
@@ -268,8 +258,7 @@ public class NewsController {
                 .filter(news -> keywords.stream().allMatch(news.getText()::contains))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         if (rezNews.isEmpty()) {
@@ -285,8 +274,7 @@ public class NewsController {
                 .filter(news -> news.getCop().equals(cop))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         if (rezNews.isEmpty()) {
@@ -302,8 +290,7 @@ public class NewsController {
                 .filter(news -> news.getCop().equals(cop) && news.getTopics().containsAll(topics))
                 .map(news -> new ResponseNewsDTO(news.getId(), news.getPublisher().getLastName() + " " +
                         news.getPublisher().getFirstName(), news.getPublishDate(), news.getText(), news.getImage(),
-                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop(),
-                        news.isLikedByCurrentUser()))
+                        news.isPinned(), news.getLikes(), news.getComments(), news.getTopics(), news.getCop()))
                 .collect(Collectors.toList());
 
         if (rezNews.isEmpty()) {

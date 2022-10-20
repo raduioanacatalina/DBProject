@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/auth/service/auth.service';
 import { NewsService } from 'src/app/shared/service/news.service';
 import { News } from '../../model/news.model';
 import { CommentsPopUpComponent } from '../comments-pop-up/comments-pop-up.component';
@@ -17,13 +18,17 @@ export class NewsCardComponent implements OnInit {
   news!: News;
   @Output()
   deleted: EventEmitter<void> = new EventEmitter();
+  public clicked: boolean = false;
+  router: any;
 
   constructor(
     public dialog: MatDialog,
+    private authService: AuthService,
     private newsService: NewsService,
-    private _snackBar: MatSnackBar
-  ) {}
+    private _snackBar: MatSnackBar,
+    ) {}
 
+    
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
       width: '250px',
@@ -53,6 +58,23 @@ export class NewsCardComponent implements OnInit {
     });
   }
 
+  pressLikePost() {
+      this.newsService.putLikePost(this.news.id).subscribe({
+        next: (newsUpdated: News) => {
+          if (!this.likedByUser()) {
+            this._snackBar.open('You liked this post!', 'Ok');
+          }
+          else {
+            this._snackBar.open('You unliked this post!', 'Ok');
+          }
+          this.news = newsUpdated;
+        },
+        error: () => {
+          this._snackBar.open('Like failed!', 'Ok');
+        },
+      });
+  }
+
   // increaseLike() {
   //   this.news.likes++;
   // }
@@ -74,5 +96,10 @@ export class NewsCardComponent implements OnInit {
     });
   }
 
+  likedByUser(): boolean {
+    return this.news.likes.filter(like => "" + like.userId === "" + this.authService.getId()).length > 0;
+  }
+
+  
   ngOnInit(): void {}
 }

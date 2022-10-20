@@ -11,13 +11,15 @@ export interface News {
 
   pinned: boolean;
 
-  likes: Set<UserLike>;
+  likes: Array<UserLike>;
 
-  comments: Set<UserComment>;
+  comments: Array<UserComment>;
 
   topics: string[];
 
   cop: string;
+
+  likedByUser: boolean;
 }
 
 export interface UserComment {
@@ -29,4 +31,5 @@ export interface UserComment {
 export interface UserLike {
   id: number;
   userId: number;
+  pressed: boolean;
 }

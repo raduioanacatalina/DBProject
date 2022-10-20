@@ -24,6 +24,9 @@ public class UserLike {
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
-    @Column
-    private boolean isPressed;
+
+    public void setNews(News news) {
+        this.news = news;
+        news.getLikes().add(this);
+    }
 }

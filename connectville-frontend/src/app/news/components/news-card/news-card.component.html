@@ -48,9 +48,8 @@
 
   <mat-card-actions>
     <div class="flex-container">
-      <!-- <span id="number-likes">{{ news.likes.size }}</span> -->
       <div class="icons-container">
-        <i class="material-icons" matTooltip="Like Post">thumb_up_off_alt</i>
+        <i class="material-icons" (click)="pressLikePost()" matTooltip="{{news.likes.length}}">{{likedByUser()? "thumb_up" : "thumb_up_off_alt"}}</i>
         <i
           class="material-icons"
           (click)="openDialog()"

@@ -22,6 +22,7 @@ public class JWTUtils {
         payloadClaims.put("email", user.getEmail());
         payloadClaims.put("username", user.getUsername());
         payloadClaims.put("role", user.getRole().toString());
+        payloadClaims.put("id", user.getId() + "");
         return JWT.create()
                 .withPayload(payloadClaims)
                 .withIssuer("connectville")

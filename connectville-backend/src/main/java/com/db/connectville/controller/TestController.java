@@ -35,7 +35,7 @@ public class TestController {
         testNews.setImage("https://i.picsum.photos/id/1002/4312/2868.jpg?hmac=5LlLE-NY9oMnmIQp7ms6IfdvSUQOzP_O3DPMWmyNxwo");
 
         List<UserLike> userLikes = new ArrayList<>();
-        userLikes.add(new UserLike(1, 1, testNews, false));
+        userLikes.add(new UserLike(1, 1, testNews));
         Set<UserComment> userComments = new HashSet<>();
         userComments.add(new UserComment(1, 1, testNews, "nice view", new Date()));
 

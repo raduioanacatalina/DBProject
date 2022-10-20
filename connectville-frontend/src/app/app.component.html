@@ -9,14 +9,14 @@
           class="home-button"
           (click)="homepageClicked()"
           *ngIf="router.url !== '/login'"
-        >
+          >
           <mat-icon class="homepage-icon">home</mat-icon>
         </button>
-
+        
         <div class="spacer"></div>
         <div *ngIf="router.url !== '/login' && router.url !== '/createNews'">
           <button
-            *appPermission="'admin'"
+          *appPermission="'admin'"
             mat-raised-button
             class="create-post"
             matTooltip="Create New Post"
@@ -58,7 +58,10 @@
         </button>
       </mat-toolbar>
     </div>
-
+      <span *ngIf="router.url !== '/login'" id="welcome_tag">Welcome, {{authService.getName()}} <img
+        mat-card-avatar id="welcome_avatar"
+        src="../../../../assets/blank-profile-picture-g19ba23f36_640.png"/>
+      </span>
     <router-outlet></router-outlet>
   </div>
   <footer class="footer-container">

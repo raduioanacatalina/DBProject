@@ -58,6 +58,14 @@ export class AuthService {
   getRole(): Role | undefined {
     return this._loggedInUser$.getValue()?.role;
   }
+  
+  getName(): string | undefined {
+    return this._loggedInUser$.getValue()?.lastName + ' ' + this._loggedInUser$.getValue()?.firstName + '   ';
+  }
+  
+  getId(): number | undefined {
+    return this._loggedInUser$.getValue()?.id;
+  }
 
   parseJwt(token: string): User {
     console.log(token);

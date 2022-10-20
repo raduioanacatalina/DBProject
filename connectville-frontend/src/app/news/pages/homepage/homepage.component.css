@@ -3,12 +3,12 @@
 }
 
 .cards-container {
-  /* margin-top: 80px; */
   display: flex;
   flex-direction: column;
   gap: 5rem;
   margin: auto;
   align-items: center;
+  margin-top: -50px;
 }
 
 .item {
