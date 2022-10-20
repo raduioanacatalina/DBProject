@@ -14,12 +14,17 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-  createNews(text: string, topics: string[], cop: string, image: string): Observable<News> {
+  createNews(
+    text: string,
+    topics: string[],
+    cop: string,
+    image: string
+  ): Observable<News> {
     return this.http.post<News>(environment.apiUrl + '/news/new', {
       text,
       topics,
       image,
-      cop
+      cop,
     });
     // return of({
     //   id: 1,

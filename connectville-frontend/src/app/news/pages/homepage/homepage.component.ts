@@ -11,6 +11,7 @@ import {
 import { CreateNewsComponent } from 'src/app/admin/pages/create-news/create-news.component';
 import { DialogOverviewComponent } from '../../components/dialog-overview/dialog-overview.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 export interface DialogData {
   newsId: number;
@@ -28,7 +29,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private router: Router,
     private newsService: NewsService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   onNewsDelete(newsId: number) {
@@ -37,9 +39,31 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  // filterClicked(cop: string) {
+  //   this.newsService.getAllNewsByCop(cop).subscribe((news: News[]) => {
+  //     this.newsList = [...news];
+  //     console.log(this.newsList);
+  //     console.log(cop);
+  //     this.router.navigate(['homepage'], {
+  //       queryParams: { order: cop },
+  //     });
+  //   });
+  // }
+
   ngOnInit(): void {
-    this.newsService.getAllNews().subscribe((news: News[]) => {
-      this.newsList = [...news];
+    this.activatedRoute.queryParams.subscribe((params) => {
+      console.log(params);
+      if (params['CoP'] == undefined) {
+        this.newsService.getAllNews().subscribe((news: News[]) => {
+          this.newsList = [...news];
+        });
+      } else {
+        this.newsService
+          .getAllNewsByCop(params['CoP'])
+          .subscribe((news: News[]) => {
+            this.newsList = [...news];
+          });
+      }
     });
   }
 }
