@@ -30,6 +30,7 @@
           *ngIf="router.url !== '/login' && router.url !== '/createNews'"
           mat-raised-button
           matTooltip="Filter HR Space"
+          (click)="filterClick('HR')"
         >
           HR
         </button>
@@ -37,6 +38,7 @@
           *ngIf="router.url !== '/login' && router.url !== '/createNews'"
           mat-raised-button
           matTooltip="Filter Legal Space"
+          (click)="filterClick('Legal')"
         >
           Legal
         </button>
@@ -44,6 +46,7 @@
           *ngIf="router.url !== '/login' && router.url !== '/createNews'"
           mat-raised-button
           matTooltip="Filter Tech Space"
+          (click)="filterClick('Tech')"
         >
           Tech
         </button>

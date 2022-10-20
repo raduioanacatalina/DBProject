@@ -30,4 +30,10 @@ export class AppComponent {
   homepageClicked() {
     this.router.navigate(['homepage']);
   }
+
+  filterClick(cop: string) {
+    this.router.navigate(['homepage'], {
+      queryParams: { CoP: cop },
+    });
+  }
 }
