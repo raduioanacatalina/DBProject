@@ -59,6 +59,7 @@ export class NewsCardComponent implements OnInit {
   }
 
   pressLikePost() {
+    console.log(this.authService.getToken());
       this.newsService.putLikePost(this.news.id).subscribe({
         next: (newsUpdated: News) => {
           if (!this.likedByUser()) {

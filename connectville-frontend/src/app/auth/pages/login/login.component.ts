@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   showInvalidCredentialsMessage() {
-    this._snackBar.open('Password incorrect!', 'Ok');
+    this._snackBar.open('Invalid credentials!', 'Ok');
   }
 
   ngOnInit(): void {}

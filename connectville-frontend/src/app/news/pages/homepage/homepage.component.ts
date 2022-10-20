@@ -1,15 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { News } from '../../model/news.model';
-import { AuthService } from 'src/app/auth/service/auth.service';
 import { NewsService } from 'src/app/shared/service/news.service';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import { CreateNewsComponent } from 'src/app/admin/pages/create-news/create-news.component';
-import { DialogOverviewComponent } from '../../components/dialog-overview/dialog-overview.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 

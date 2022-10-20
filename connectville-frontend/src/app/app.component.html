@@ -61,7 +61,7 @@
         </button>
       </mat-toolbar>
     </div>
-      <span *ngIf="router.url !== '/login'" id="welcome_tag">Welcome, {{authService.getName()}} <img
+      <span *ngIf="router.url !== '/login' && router.url !== '/createNews'" id="welcome_tag">Welcome, {{authService.getName()}} <img
         mat-card-avatar id="welcome_avatar"
         src="../../../../assets/blank-profile-picture-g19ba23f36_640.png"/>
       </span>
